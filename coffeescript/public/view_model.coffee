@@ -1,11 +1,18 @@
-model =
-  data: ko.observableArray()
+class ViewModel
+  constructor: ->
+    @data = ko.observableArray()
 
-$.getJSON "http://localhost:8080/data"
-  .done (data) ->
-    model.data data
-  .fail ->
-    console.log "Failed to get data"
+    $.getJSON "http://localhost:8081/data"
+    .done (data) =>
+      @data data
+    .fail ->
+      console.log "Failed to get data"
 
+  addUseCaseEvent: ->
+    # @data.push "Something"
+    console.log "Adding new use case"
+    return
 
-ko.applyBindings model
+$ ->
+  ko.applyBindings new ViewModel
+  return

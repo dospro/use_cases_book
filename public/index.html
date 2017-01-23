@@ -4,31 +4,96 @@
     <meta charset="UTF-8">
     <title>Use Cases Book</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
     <script src="../node_modules/jquery/dist/jquery.js" type="text/javascript"></script>
     <script src="js/knockout-3.4.1.js" type="text/javascript"></script>
 </head>
 <body>
-<div id="accordion" data-bind="foreach: data">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="mb-0">
-                <a data-toggle="collapse" data-parent="#accordion" data-bind="attr: {href: hreference}" aria-expanded="false">
-                    <span data-bind="text: name"></span>
-                </a>
-            </h5>
-        </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" id="accordion" data-bind="foreach: data">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <a data-toggle="collapse" data-parent="#accordion" data-bind="attr: {href: hreference}"
+                           aria-expanded="false">
+                            <span data-bind="text: name"></span>
+                        </a>
+                    </h5>
+                </div>
 
-        <div class="collapse" data-bind="attr: {id: reference}">
-            <div class="card-block">
-                <span data-bind="text: description"></span>
+                <div class="collapse" data-bind="attr: {id: reference}">
+                    <div class="card-block">
+                        <span data-bind="text: description"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Nuevo Caso de Uso</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">New Use Case</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="form-group">
+                        <label class="">
+                            Name
+                        </label>
+                        <input type="text" class="form-control">
+
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Descriptionn
+                        </label>
+                        <textarea class="form-control">Short description</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="">
+                            Version
+                        </label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="">
+                            Course
+                        </label>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
 </div>
+
 <script src="js/view_model.js" type="text/javascript"></script>
 </body>
 </html>
