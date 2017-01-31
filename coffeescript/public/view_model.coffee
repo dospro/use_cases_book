@@ -1,6 +1,10 @@
 class ViewModel
   constructor: ->
     @data = ko.observableArray()
+    @form =
+      name: ko.observable()
+      description: ko.observable()
+
 
     $.getJSON "http://localhost:8081/data"
     .done (data) =>
@@ -8,9 +12,9 @@ class ViewModel
     .fail ->
       console.log "Failed to get data"
 
-  addUseCaseEvent: ->
-    # @data.push "Something"
+  submitNewUseCase: (data) ->
     console.log "Adding new use case"
+    console.log data
     return
 
 $ ->
