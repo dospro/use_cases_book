@@ -1,4 +1,9 @@
 drop table if exists use_cases;
+drop table if exists actors;
+drop table if exists use_case_actors;
+drop table if exists stakeholders;
+drop table if exists use_case_steps;
+drop table if exists extensions;
 
 create table if not exists use_cases(
 id integer primary key not null,
