@@ -17,6 +17,9 @@ class ViewModel
       posCondition: ko.observable()
       notes: ko.observable()
 
+    @form.name.subscribe (data) ->
+      console.log "Name changed to: %o", data
+
 
     $.getJSON "http://localhost:8081/data"
     .done (data) =>
@@ -27,6 +30,9 @@ class ViewModel
   submitNewUseCase: (data) ->
     console.log "Adding new use case"
     console.log data
+    $.post "http://localhost:8081/add", name: @form.name() description: @form.description()
+    .done ->
+      console.log "Sent"
     return
 
 $ ->

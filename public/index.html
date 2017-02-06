@@ -64,7 +64,7 @@
                         <label>
                             Name
                         </label>
-                        <input type="text" class="form-control" data-bind="textInput: form.name">
+                        <input type="text" class="form-control" data-bind="value: form.name">
 
                     </div>
                     <div class="form-group">
@@ -75,24 +75,27 @@
                             Short description
                         </textarea>
                     </div>
-                    <div class="form-group">
-                        <label>
-                            Version:
-                        </label>
-                        <select class="form-control">
-                            <option selected>1</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <select class="form-control">
-                                <option selected>System</option>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>
+                                Version:
+                            </label>
+                            <select class="form-control" data-bind="value: form.version">
+                                <option selected>1</option>
+                                <option>2</option>
                             </select>
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary">
-                                    Add
-                                </button>
-                            </span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <select class="form-control">
+                                    <option selected>System</option>
+                                </select>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary">
+                                        Add
+                                    </button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
