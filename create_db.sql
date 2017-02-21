@@ -24,24 +24,24 @@ name text not null
 );
 
 create table if not exists use_case_actors(
-use_case_id integer foreign key not null,
-actor_id integer foreign key not null
+use_case_id integer not null,
+actor_id integer not null
 );
 
 create table if not exists stakeholders(
-use_case_id integer foreign key not null,
+use_case_id integer not null,
 stakeholder_name text not null
-)
+);
 
 create table if not exists use_case_steps(
 id integer primary key not null,
-use_case_id integer foreign key not null,
+use_case_id integer not null,
 step_number integer not null,
 description text not null
 );
 
 create table if not exists extensions(
-step_id integer foreign key not null,
+step_id integer not null,
 extension_number integer not null,
 description text not null
 );

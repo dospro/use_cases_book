@@ -17,8 +17,8 @@ class ViewModel
       posCondition: ko.observable()
       notes: ko.observable()
 
-    @form.name.subscribe (data) ->
-      console.log "Name changed to: %o", data
+
+    @form.course.push({index: i, text: "Write step #{i} description."})
 
 
     $.getJSON "http://localhost:8081/data"
