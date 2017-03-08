@@ -18,20 +18,28 @@ class ViewModel
       notes: ko.observable()
 
 
-    @form.course.push({index: i, text: "Write step #{i} description."})
+    for i in [1..3]
+      @form.course.push({index: i, text: "Write step #{i} description."})
 
 
     $.getJSON "http://localhost:8081/data"
     .done (data) =>
+      console.log "Getting data"
       @data data
+      console.log "Received"
+      console.log "Data: %o", @data()
     .fail ->
       console.log "Failed to get data"
 
-  submitNewUseCase: (data) ->
+  submitNewUseCase: (data) =>
     console.log "Adding new use case"
     console.log data
-    $.post "http://localhost:8081/add", name: @form.name() description: @form.description()
+    params =
+      name: @form.name()
+      description: @form.description()
+    $.post "http://localhost:8081/add", params
     .done ->
+      # TODO: Tell the client to refresh
       console.log "Sent"
     return
 
