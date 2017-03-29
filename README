@@ -1,0 +1,16 @@
+# Use cases book
+
+This is a little web application for managing uses cases for a project.
+It is more like an exercise than a real project.
+
+It uses the following the dependecies:
+
+* Boostrap
+* KnockoutJS as a MVVM and templating framework.
+* Coffeescript as the main language.
+* Express as the web framework.
+* SQLite3 for the database
+* JQuery
+* Gulp as the tasks runner
+
+I know this stack is not ideal, but it works for the purposes of this project.
