@@ -4,7 +4,8 @@
   "description": "A very simple use case administrator",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "initdb": "sqlite3 database.db < sql_scripts/create_db.sql; sqlite3 database.db < sql_scripts/fill_test_data.sql"
   },
   "author": "",
   "license": "ISC",
