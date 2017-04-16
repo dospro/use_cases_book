@@ -4,19 +4,8 @@
     <meta charset="UTF-8">
     <title>Use Cases Book</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-            crossorigin="anonymous"></script>
-    <script src="../node_modules/jquery/dist/jquery.js" type="text/javascript"></script>
-    <script src="js/knockout-3.4.2.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
 </head>
 <body>
 <div class="container">
@@ -113,8 +102,19 @@
                         </div>
                         <div class="card-block" data-bind="foreach: form.course">
                             <div class="input-group">
-                                <span class="input-group-addon" data-bind="text: $data.index"></span>
-                                <input type="text" class="form-control" data-bind="attr: {placeholder: $data.text}">
+                                <span class="input-group-addon" data-bind="text: index"></span>
+                                <input type="text" class="form-control" data-bind="value: text">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" title="New Step" type="button" data-bind="click: $parent.addStep">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" title="Remove Step" type="button" data-bind="click: $parent.removeStep">
+                                        <i class="fa fa-remove" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+
                             </div>
                         </div>
                     </div>
@@ -165,6 +165,10 @@
     </div>
 </div>
 
+<script src="js/external/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="js/external/tether.min.js" type="text/javascript"></script>
+<script src="js/external/bootstrap.js" type="text/javascript"></script>
+<script src="js/external/knockout-3.4.2.js" type="text/javascript"></script>
 <script src="js/view_model.js" type="text/javascript"></script>
 </body>
 </html>

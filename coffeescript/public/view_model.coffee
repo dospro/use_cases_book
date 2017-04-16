@@ -18,9 +18,9 @@ class ViewModel
       notes: ko.observable()
 
 
-    for i in [1..3]
-      @form.course.push({index: i, text: "Write step #{i} description."})
-
+    @form.course.push
+      index: 1
+      text: ko.observable "Empty"
 
     $.getJSON "http://localhost:8081/data"
     .done (data) =>
@@ -41,6 +41,34 @@ class ViewModel
     .done ->
       # TODO: Tell the client to refresh
       console.log "Sent"
+    return
+
+  addStep: (stepData) =>
+    stepNumber = stepData.index
+    totalSteps = @form.course().length
+
+    # Add a new empty slot at the end.
+    @form.course.push
+      index: totalSteps + 1
+      text: ko.observable ""
+
+    # Move all items
+    tempText = ""
+    steps = @form.course()
+    for i in [stepNumber..totalSteps]
+      temp = steps[i].text()
+      steps[i].text tempText
+      tempText = temp
+
+  removeStep: (stepData) =>
+    console.log "Remove #{stepData.index}"
+    console.log "Move everything down"
+
+
+  _swap: (objectA, objectB) ->
+    temp = objectA
+    objectA = objectB
+    objectB = temp
     return
 
 $ ->
