@@ -61,15 +61,26 @@ class ViewModel
       tempText = temp
 
   removeStep: (stepData) =>
-    console.log "Remove #{stepData.index}"
-    console.log "Move everything down"
+    totalSteps = @form.course().length
+    steps = @form.course()
 
+    if stepData.index > totalSteps
+      console.log "Error: Can't delete undefined step"
+      return
 
-  _swap: (objectA, objectB) ->
-    temp = objectA
-    objectA = objectB
-    objectB = temp
-    return
+    if totalSteps == 1
+      console.log "Can't remove first step"
+      return
+
+    if stepData.index == totalSteps
+      console.log "Removing last step"
+      @form.course.pop()
+      return
+
+    for i in [stepData.index..totalSteps - 1]
+      steps[i - 1].text steps[i].text()
+
+    @form.course.pop()
 
 $ ->
   ko.applyBindings new ViewModel
