@@ -1,3 +1,7 @@
+class Step
+  constructor: (index, text) ->
+    @index = index
+    @text = ko.observable text
 
 
 class ViewModel
@@ -18,9 +22,12 @@ class ViewModel
       notes: ko.observable()
 
 
-    @form.course.push
+    @form.course.push new Step(1, "Empty")
+
+    @form.extensions.push
       index: 1
-      text: ko.observable "Empty"
+      courseStep: @form.course[0]
+      steps: ko.observableArray [new Step(1, "Nothing")]
 
     $.getJSON "http://localhost:8081/data"
     .done (data) =>
@@ -60,9 +67,6 @@ class ViewModel
       steps[i].text tempText
       tempText = temp
 
-  addExtensionStep: (stepData) =>
-    console.log "Extension"
-
   removeStep: (stepData) =>
     totalSteps = @form.course().length
     steps = @form.course()
@@ -84,6 +88,27 @@ class ViewModel
       steps[i - 1].text steps[i].text()
 
     @form.course.pop()
+
+  addExtension: (extensionData) =>
+    console.log "Adding extension"
+    extensionNumber = extensionData.index
+    totalExtensions = @form.extensions().length
+
+    # Add a new empty slot at the end.
+    @form.extensions.push
+      index: totalExtensions + 1
+      courseStep: @form.course[0]
+      steps: ko.observableArray [new Step(1, "Empty")]
+
+
+  addExtensionStep: (stepData) =>
+    console.log "Adding extension step"
+
+  removeExtensionStep: (stepData) =>
+    console.log "Removing step"
+
+  setCourseStep: (data) =>
+    console.log data
 
 $ ->
   ko.applyBindings new ViewModel

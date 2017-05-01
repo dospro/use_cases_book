@@ -66,21 +66,21 @@
                         </textarea>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label>
                                 Version:
                             </label>
-                            <select class="form-control" data-bind="value: form.version">
+                            <select class="custom-select" data-bind="value: form.version">
                                 <option selected>1</option>
                                 <option>2</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <label>
                                 Actors:
                             </label>
                             <div class="input-group">
-                                <select class="form-control">
+                                <select class="custom-select">
                                     <option selected>System</option>
                                 </select>
                                 <span class="input-group-btn">
@@ -106,12 +106,14 @@
                                 <span class="input-group-addon" data-bind="text: index"></span>
                                 <input type="text" class="form-control" data-bind="value: text">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-success" title="New Step" type="button" data-bind="click: $parent.addStep">
+                                    <button class="btn btn-success" title="New Step" type="button"
+                                            data-bind="click: $parent.addStep">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </button>
                                 </span>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-success" title="Remove Step" type="button" data-bind="click: $parent.removeStep">
+                                    <button class="btn btn-success" title="Remove Step" type="button"
+                                            data-bind="click: $parent.removeStep">
                                         <i class="fa fa-remove" aria-hidden="true"></i>
                                     </button>
                                 </span>
@@ -123,25 +125,28 @@
                         <div class="card-header">
                             Extensions:
                         </div>
-                        <div class="card-block">
+                        <div class="card-block" data-bind="foreach: form.extensions">
                             <div class="input-group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    1.
-                                </button>
-                                <span class="input-group-addon">a</span>
-                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <span class="dropdown-item">1.</span>
-                                    <span class="dropdown-item">2.</span>
-                                </div>
+                                <select class="custom-select" data-bind="options: $root.form.course, optionsText: 'index', value: courseStep">
+                                </select>
+                                <span class="input-group-addon">a.</span>
                                 <input type="text" class="form-control">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-success" title="New Step" type="button">
+                                    <button class="btn btn-success" title="New Step" type="button"
+                                            data-bind="click: $parent.addExtensionStep">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </button>
                                 </span>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-success" title="Remove Step" type="button">
+                                    <button class="btn btn-success" title="Remove Step" type="button"
+                                            data-bind="click: $parent.removeExtensionStep">
                                         <i class="fa fa-remove" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" title="Add extension" type="button"
+                                            data-bind="click: $parent.addExtension">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                                     </button>
                                 </span>
                             </div>
