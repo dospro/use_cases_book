@@ -60,6 +60,9 @@ class ViewModel
       steps[i].text tempText
       tempText = temp
 
+  addExtensionStep: (stepData) =>
+    console.log "Extension"
+
   removeStep: (stepData) =>
     totalSteps = @form.course().length
     steps = @form.course()

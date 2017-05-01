@@ -124,17 +124,26 @@
                             Extensions:
                         </div>
                         <div class="card-block">
-                            <div class="form-group">
-                                <label>
-                                    Step 1.a:
-                                </label>
-                                <input type="text">
-                            </div>
-                            <div class="form-group">
-                                <label>
-                                    Step 1.b:
-                                </label>
-                                <input type="text">
+                            <div class="input-group">
+                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    1.
+                                </button>
+                                <span class="input-group-addon">a</span>
+                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <span class="dropdown-item">1.</span>
+                                    <span class="dropdown-item">2.</span>
+                                </div>
+                                <input type="text" class="form-control">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" title="New Step" type="button">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" title="Remove Step" type="button">
+                                        <i class="fa fa-remove" aria-hidden="true"></i>
+                                    </button>
+                                </span>
                             </div>
                         </div>
                     </div>
