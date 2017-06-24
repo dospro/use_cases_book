@@ -2,23 +2,34 @@
   "name": "use_cases_book",
   "version": "1.0.0",
   "description": "A very simple use case administrator",
-  "main": "index.html",
+  "main": "/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "initdb": "sqlite3 database.db < sql_scripts/create_db.sql; sqlite3 database.db < sql_scripts/fill_test_data.sql"
+    "start": "node ./dist/server.js",
+    "initdb": "sqlite3 database.db < sql_scripts/create_db.sql; sqlite3 database.db < sql_scripts/fill_test_data.sql",
+    "prepublish": "npm-run-all compile-coffee bundle",
+    "clean-dist": "rm -rf ./dist && mkdir dist",
+    "clean-public": "rm -rf ./public/js/*.js",
+    "clean": "npm-run-all --parallel clean-dist clean-public",
+    "compile-coffee-dist": "coffee -o ./dist --compile ./coffeescript/*.coffee",
+    "compile-coffee-public": "coffee -o ./public/js --compile ./coffeescript/public/*.coffee",
+    "compile-coffee": "npm-run-all compile-coffee-dist compile-coffee-public",
+    "bundle": "webpack"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "body-parser": "^1.16.0",
+    "coffee-script": "^1.12.6",
     "express": "^4.14.0",
-    "gulp": "^3.9.1",
-    "gulp-coffee": "^2.3.3",
-    "jquery": "^3.1.1",
-    "sqlite3": "^3.1.8"
+    "npm-run-all": "^4.0.2",
+    "sqlite3": "^3.1.8",
+    "webpack": "^3.0.0"
   },
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "body-parser": "^1.16.0",
+    "sqlite3": "^3.1.8"
   },
   "repository": {
     "type": "git",

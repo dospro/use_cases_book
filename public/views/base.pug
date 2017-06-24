@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    div.container#app
+        div.row
+            div.col-12(id="accordion", v-for="item in items")
+                div.card
+                    div.card-header
+                        h5.mb-0
+                            a(data-toggle="collapse", data-parent="#accordion", v-bind:href="item.hReference", aria-expanded="false")
+                                span {{ item.name }}
+
+                    div.collapse(:id="item.reference")
+                        div.card-block
+                            span {{item.description}}
+
+        div.row
+            div.col-4
+                button.btn.btn-primary(data-toggle="modal", data-target="#myModal") Nuevo Caso de Uso
+
+
+    include new_case/new_case_modal

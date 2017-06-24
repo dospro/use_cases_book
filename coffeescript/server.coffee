@@ -1,8 +1,16 @@
 express = require "express"
-bodyParser =  require "body-parser"
+bodyParser = require "body-parser"
+path = require "path"
 database = require "./db_interface"
 app = express()
 db = new database.Connection "database.db"
+
+app.set "view engine", "pug"
+app.set 'views', path.join(__dirname, '../public/views')
+app.use express.static(path.join(__dirname, '../public'))
+
+app.get "/", (request, response, next) ->
+  response.render "base"
 
 app.use bodyParser.json()
 app.use bodyParser.urlencoded extended: true
