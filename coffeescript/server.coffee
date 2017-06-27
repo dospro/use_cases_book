@@ -12,6 +12,9 @@ app.use express.static(path.join(__dirname, '../public'))
 app.get "/", (request, response, next) ->
   response.render "base"
 
+app.get "/new", (request, response, next) ->
+  response.render "new_case/new_case"
+
 app.use bodyParser.json()
 app.use bodyParser.urlencoded extended: true
 

@@ -1,0 +1,64 @@
+extends ../layout
+
+block content
+    div.container#newCaseApp
+        .form-group
+            label Name
+            input.form-control(type='text' v-model="name")
+        .form-group
+            label Description
+            textarea.form-control(v-model="description")
+        .row
+            .col-4
+                label Version:
+                select.custom-select
+                    template(v-for="item in 10")
+                        option {{ item }}
+
+            .col-8
+                .input-group
+                    label Actors:
+                    select.custom-select
+                        option(selected='') System
+                    span.input-group-btn
+                        button.btn.btn-primary Add
+        .form-group
+            label Goal:
+            input.form-control(type='text')
+        .card
+            .card-header Basic Course Steps
+            .card-block
+                template(v-for="item in course")
+                    include step
+        .card
+            .card-header
+                | Extensions:
+            .card-block(data-bind='foreach: form.extensions')
+                .input-group
+                    select.custom-select(data-bind="options: $root.form.course, optionsText: 'index', value: courseStep")
+                    span.input-group-addon a.
+                    input.form-control(type='text')
+                    span.input-group-btn
+                        button.btn.btn-success(title='New Step', type='button', data-bind='click: $parent.addExtensionStep')
+                            i.fa.fa-plus(aria-hidden='true')
+                    span.input-group-btn
+                        button.btn.btn-success(title='Remove Step', type='button', data-bind='click: $parent.removeExtensionStep')
+                            i.fa.fa-remove(aria-hidden='true')
+                    span.input-group-btn
+                        button.btn.btn-primary(title='Add extension', type='button', data-bind='click: $parent.addExtension')
+                            i.fa.fa-plus-square-o(aria-hidden='true')
+        .form-group
+            label Pre-conditions:
+            input.form-control(type='text')
+        .form-group
+            label Pos-conditions:
+            input.form-control(type='text')
+        .form-group
+            label Comments:
+            input.form-control(type='text')
+
+    button.btn.btn-default(type='button', data-dismiss='modal') Close
+    button.btn.btn-primary(type='button', data-bind='click: submitNewUseCase') Save changes
+
+block scripts
+    script(src="../js/new_case.js", type="text/javascript")

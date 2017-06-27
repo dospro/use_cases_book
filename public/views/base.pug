@@ -16,7 +16,7 @@ block content
 
         div.row
             div.col-4
-                button.btn.btn-primary(data-toggle="modal", data-target="#myModal") Nuevo Caso de Uso
+                a.btn.btn-primary(href="new") Nuevo Caso de Uso
 
-
-    include new_case/new_case_modal
+block scripts
+    script(src="js/bundle.js", type="text/javascript")
