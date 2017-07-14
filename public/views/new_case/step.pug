@@ -1,9 +1,9 @@
 .input-group
-    span.input-group-addon {{item.index}}
-    input.form-control(type='text', v-model="item.text")
-    span.input-group-btn
-        button.btn.btn-success(title='New Step', type='button', v-on:click="addCourseStep(item.index)")
-            i.fa.fa-plus
-    span.input-group-btn
-        button.btn.btn-success(title='Remove Step', type='button' v-on:click="removeCourseStep(item.index)")
-            i.fa.fa-remove(aria-hidden='true')
+  span.input-group-addon {{item.index}}
+  input.form-control(type='text', v-model="item.text")
+  span.input-group-btn
+    button.btn.btn-success(title='New Step', type='button', v-on:click="addCourseStep(item.index)")
+      i.fa.fa-plus
+  span.input-group-btn
+    button.btn.btn-success(title='Remove Step', type='button' v-on:click="removeCourseStep(item.index)")
+      i.fa.fa-remove(aria-hidden='true')
