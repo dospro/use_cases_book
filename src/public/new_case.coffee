@@ -43,4 +43,3 @@ newCaseApp = new Vue
       if stepIndex < total
         for i in [stepIndex..total - 1]
           this.course[i].index--
-

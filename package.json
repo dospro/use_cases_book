@@ -11,20 +11,21 @@
     "clean-dist": "rm -rf ./dist && mkdir dist",
     "clean-public": "rm -rf ./public/js/*.js",
     "clean": "npm-run-all --parallel clean-dist clean-public",
-    "compile-coffee-dist": "coffee -o ./dist --compile ./coffeescript/*.coffee",
-    "compile-coffee-public": "coffee -o ./public/js --compile ./coffeescript/public/*.coffee",
-    "compile-coffee": "npm-run-all compile-coffee-dist compile-coffee-public",
+    "compile-coffee": "coffee -o ./dist --compile ./src/*.coffee",
     "bundle": "webpack"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "body-parser": "^1.16.0",
+    "coffee-loader": "^0.7.3",
     "coffee-script": "^1.12.6",
     "express": "^4.14.0",
     "npm-run-all": "^4.0.2",
     "pug": "^2.0.0-rc.2",
     "sqlite3": "^3.1.8",
+    "vue-loader": "^13.0.0",
+    "vue-template-compiler": "^2.3.4",
     "webpack": "^3.0.0"
   },
   "dependencies": {
