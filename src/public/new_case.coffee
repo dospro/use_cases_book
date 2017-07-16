@@ -1,3 +1,5 @@
+import { addItemToList, removeItemFromList } from '../utils.coffee'
+
 newCaseApp = new Vue
   el: "#newCaseApp"
   data:
@@ -10,36 +12,50 @@ newCaseApp = new Vue
         text: ""
       }
     ]
+    extensions: [
+      {
+        parentStep: 1
+        extensionSteps: [
+          {
+            index: 1
+            text: ""
+          }
+        ]
+      }
+    ]
   methods:
     addCourseStep: (stepId) ->
-      stepIndex = stepId - 1
-      total = this.course.length
-
-      if stepIndex >= total
-        console.log "Out of index"
-        return
-
       newStep =
         index: stepId
         text: ""
-      this.course.splice stepIndex + 1, 0, newStep
-      stepIndex++
-      total = this.course.length
-      for i in [stepIndex..total - 1]
-        this.course[i].index++
+      addItemToList @course, stepId, newStep
 
     removeCourseStep: (stepId) ->
-      stepIndex = stepId - 1
-      total = this.course.length
-      if total == 1
-        console.log "Only one element left"
-        return
-      if stepIndex >= total
-        console.log "Out of index"
-        return
+      removeItemFromList @course, stepId
 
-      this.course.splice stepIndex, 1
-      total = this.course.length
-      if stepIndex < total
-        for i in [stepIndex..total - 1]
-          this.course[i].index--
+    addExtension: ->
+      newItem = {
+        parentStep: 1
+        extensionSteps: [
+          {
+            index: 1
+            text: ""
+          }
+        ]
+      }
+
+      @extensions.push newItem
+
+    addExtensionStep: (extensionIndex, stepId) ->
+      newStep =
+        index: stepId
+        text: ""
+      addItemToList @extensions[extensionIndex].extensionSteps, stepId, newStep
+
+
+    removeExtensionStep: (extensionIndex, stepId) ->
+      removeItemFromList @extensions[extensionIndex].extensionSteps, stepId
+
+    indexToLetter: (index) ->
+      return (index + 9).toString(36)
+

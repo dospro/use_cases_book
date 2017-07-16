@@ -10,5 +10,5 @@ $.getJSON "http://localhost:8081/data"
     app.items = data
     console.log "Received"
     console.log "Data: %o", data
-  .fail ->
-    console.log "Failed to get data"
+  .fail (err) ->
+    console.log "Failed to get data %o", err

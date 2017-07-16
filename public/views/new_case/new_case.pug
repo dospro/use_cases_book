@@ -10,10 +10,7 @@ block content
       textarea.form-control(v-model="description")
     .row
       .col-4
-        label Version:
-        select.custom-select
-          template(v-for="item in 10")
-            option {{ item }}
+        label Version: {{version}}
 
       .col-8
         .input-group
@@ -31,22 +28,13 @@ block content
         template(v-for="item in course")
           include step
     .card
-      .card-header
-        | Extensions:
-      .card-block(data-bind='foreach: form.extensions')
-        .input-group
-          select.custom-select(data-bind="options: $root.form.course, optionsText: 'index', value: courseStep")
-          span.input-group-addon a.
-          input.form-control(type='text')
+      .card-header Extensions:
+      .card-block
+        template(v-for="(item, index) in extensions")
+          include extensions
+        .offset-10.col-2
           span.input-group-btn
-            button.btn.btn-success(title='New Step', type='button', data-bind='click: $parent.addExtensionStep')
-              i.fa.fa-plus(aria-hidden='true')
-          span.input-group-btn
-            button.btn.btn-success(title='Remove Step', type='button', data-bind='click: $parent.removeExtensionStep')
-              i.fa.fa-remove(aria-hidden='true')
-          span.input-group-btn
-            button.btn.btn-primary(title='Add extension', type='button', data-bind='click: $parent.addExtension')
-              i.fa.fa-plus-square-o(aria-hidden='true')
+            button.btn.btn-primary(title='Add extension' v-on:click="addExtension") New extension
     .form-group
       label Pre-conditions:
       input.form-control(type='text')

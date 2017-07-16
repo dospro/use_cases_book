@@ -1,0 +1,18 @@
+.row
+  .col-1
+    select.custom-select
+      option 1
+      option 2
+      option 3
+  .col-11
+    template.col-11(v-for="step in item.extensionSteps")
+      .input-group
+        span.input-group-addon {{indexToLetter(step.index)}}
+        input.form-control(type='text', v-model="step.text")
+        span.input-group-btn
+          button.btn.btn-success(title='New Step', v-on:click="addExtensionStep(index, step.index)")
+            i.fa.fa-plus(aria-hidden='true')
+        span.input-group-btn
+          button.btn.btn-success(title='Remove Step', v-on:click="removeExtensionStep(index, step.index)")
+            i.fa.fa-remove(aria-hidden='true')
+hr
