@@ -1,11 +1,11 @@
 class Promise
   constructor: () ->
     @ready = false
-    @successHandler = null
+    @successHandlers = []
     @failHandler = null
 
-  done: (successHandler) ->
-    @successHandler = successHandler
+  then: (successHandler) ->
+    @successHandlers.push successHandler
     return @
 
   fail: (failHandler) ->
@@ -13,8 +13,13 @@ class Promise
     return @
 
   resolve: (data) ->
+    try
+      for handler in @successHandlers
+        handler data
+    catch e
+      console.log e
+
     @ready = true
-    @successHandler(data)
     return @
 
   reject: (errorMessage) ->

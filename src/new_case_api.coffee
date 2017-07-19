@@ -15,17 +15,18 @@ exports.updateCase = (payload) ->
 
 exports.getAllCases = () ->
   promise = new Promise
-  db.getUseCases (rows) ->
-    useCases = []
-    for row in rows
-      newData =
-        name: row.name
-        description: row.description
-        version: row.version
-        date: row.date
-        reference: "header#{row.id}"
-        hReference: "#header#{row.id}"
-      useCases.push newData
-    promise.resolve useCases
-  return promise
+  db.getUseCases()
+    .then (rows) ->
+      useCases = []
+      for row in rows
+        newData =
+          name: row.name
+          description: row.description
+          version: row.version
+          date: row.date
+          reference: "header#{row.id}"
+          hReference: "#header#{row.id}"
+        useCases.push newData
+      promise.resolve useCases
 
+  return promise
