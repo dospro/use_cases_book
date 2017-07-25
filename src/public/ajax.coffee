@@ -11,10 +11,7 @@ class Ajax
         if xmlRequest.status == 200
           promise.resolve xmlRequest.responseText
         else
-          promise.reject "Error: #{xmlRequest.response}"
-
-    xmlRequest.onerror = ->
-      promise.reject "Error: #{xmlRequest.statusText}"
+          promise.reject "Error #{xmlRequest.status}: #{xmlRequest.statusText}"
 
     xmlRequest.open "GET", requestUrl
     xmlRequest.send()
@@ -29,7 +26,7 @@ class Ajax
         if xmlRequest.status == 200
           promise.resolve xmlRequest.responseText
         else
-          promise.reject xmlRequest.statusText
+          promise.reject "Error #{xmlRequest.status}: #{xmlRequest.statusText}"
 
     xmlRequest.open "POST", requestUrl
     xmlRequest.send(params)

@@ -1,28 +1,36 @@
-import { addItemToList, removeItemFromList } from '../utils.coffee'
+import {addItemToList, removeItemFromList} from '../utils.coffee'
+import {ajax} from "./ajax.coffee"
+
+newCase =
+  name: "Escriba un nombre"
+  description: "Escriba una descripción"
+  version: 1
+  actors: []
+  goal: ""
+  precondition: ""
+  poscondition: ""
+  comment: ""
+  course: [
+    {
+      index: 1
+      text: ""
+    }
+  ]
+  extensions: [
+    {
+      parentStep: 1
+      extensionSteps: [
+        {
+          index: 1
+          text: ""
+        }
+      ]
+    }
+  ]
 
 newCaseApp = new Vue
   el: "#newCaseApp"
-  data:
-    name: "Escriba un nombre"
-    version: 10
-    description: "Escriba una descripción"
-    course: [
-      {
-        index: 1
-        text: ""
-      }
-    ]
-    extensions: [
-      {
-        parentStep: 1
-        extensionSteps: [
-          {
-            index: 1
-            text: ""
-          }
-        ]
-      }
-    ]
+  data: newCase
   methods:
     addCourseStep: (stepId) ->
       newStep =
@@ -58,4 +66,13 @@ newCaseApp = new Vue
 
     indexToLetter: (index) ->
       return (index + 9).toString(36)
+
+    saveNewUseCase: ->
+      console.log "Finally, saving!!"
+      console.log "Sending %o", newCase
+      ajax.post "http://localhost:8081/add_new_case", newCase
+        .then ->
+          console.log "Saved"
+        .fail ->
+          console.log "Failed"
 

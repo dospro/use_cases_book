@@ -4,24 +4,24 @@ block content
   div.container#newCaseApp
     .form-group
       label Name
-      input.form-control(type='text' v-model="name")
+      input.form-control(v-model="name")
     .form-group
       label Description
       textarea.form-control(v-model="description")
     .row
       .col-4
         label Version: {{version}}
-
       .col-8
         .input-group
           label Actors:
           select.custom-select
-            option(selected='') System
+            template(v-for="actor in actors")
+              option {{ actor }}
           span.input-group-btn
             button.btn.btn-primary Add
     .form-group
       label Goal:
-      input.form-control(type='text')
+      input.form-control(v-model="goal")
     .card
       .card-header Basic Course Steps
       .card-block
@@ -37,16 +37,16 @@ block content
             button.btn.btn-primary(title='Add extension' v-on:click="addExtension") New extension
     .form-group
       label Pre-conditions:
-      input.form-control(type='text')
+      input.form-control(v-model="precondition")
     .form-group
       label Pos-conditions:
-      input.form-control(type='text')
+      input.form-control(v-model="poscondition")
     .form-group
       label Comments:
-      input.form-control(type='text')
+      input.form-control(v-model="comment")
 
     .row
-      button.btn.btn-primary.offset-10.col-2 Save changes
+      button.btn.btn-primary.offset-10.col-2(v-on:click="saveNewUseCase") Save changes
 
 block scripts
   script(src="../js/newCase.bundle.js", type="text/javascript")

@@ -6,6 +6,7 @@ db = new database.Connection "database.db"
 exports.addNewCase = (payload) ->
   #db.addUseCase payload
   console.log "Add new case. Missing implementation"
+  console.log "Payload %o": payload
 
 exports.addNewActor = (payload) ->
   console.log "Add new actor. Missing implementation"

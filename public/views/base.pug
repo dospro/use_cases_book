@@ -1,21 +1,38 @@
 extends layout
 
 block content
-  div.container#app
-    div.row
-      div.col-12(id="accordion", v-for="item in items")
-        div.card
-          div.card-header
-            h5.mb-0
-              a(data-toggle="collapse", data-parent="#accordion", v-bind:href="item.hReference", aria-expanded="false")
-                span {{ item.name }}
+  .container#app
+    template(v-for="item in items")
+      .row
+        .col-8
+          .card
+            .card-header
+              h5.mb-0
+                a(href="#") {{ item.name }}
+            .card-block {{ item.description }}
+              .row
+                .col-6
+                  p Actors:
+                  ul
+                    li Actor 1
+                    li Actor 2
+                .col-6
+                  p Version: 10
+              .row
+                p Goal: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada mi id nibh lacinia, eget dapibus massa cursus.
+                p Precondition: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada mi id nibh lacinia, eget dapibus massa cursus.
+                p Poscondition: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada mi id nibh lacinia, eget dapibus massa cursus.
+                p Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada mi id nibh lacinia, eget dapibus massa cursus. Cras accumsan velit ex, eget cursus dui ultrices a. Fusce aliquam, dui eu ornare rhoncus, velit ante vestibulum arcu, ac auctor dolor massa in sem. Aliquam vel neque vel sapien auctor mollis sit amet a sapien. Phasellus efficitur quis nibh sit amet pulvinar. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla ante ex, ultrices sed varius ac, dignissim eget dui. Praesent et ligula vitae est tempus consequat in sit amet orci. Integer eu lectus ante. Duis ut odio vitae arcu bibendum tristique. Aenean sodales turpis eget massa aliquam, vel ultrices lorem rutrum. Suspendisse malesuada ex nunc, in auctor nisi imperdiet ac.
+              .row
+                p Steps:
+                ul
+                  li Step 1
+                  li Step 2
+                  li Step 3
 
-          div.collapse(:id="item.reference")
-            div.card-block
-              span {{item.description}}
 
-    div.row
-      div.col-4
+    .row
+      .col-4
         a.btn.btn-primary(href="new") Nuevo Caso de Uso
 
 block scripts

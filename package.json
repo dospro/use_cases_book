@@ -13,7 +13,8 @@
     "clean": "npm-run-all --parallel clean-dist clean-public",
     "lint": "coffeelint src/",
     "compile-coffee": "coffee -o ./dist --compile ./src/*.coffee",
-    "bundle": "webpack"
+    "bundle": "webpack",
+    "watch": "webpack --progress --colors --watch"
   },
   "author": "",
   "license": "ISC",
