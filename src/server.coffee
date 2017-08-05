@@ -18,7 +18,7 @@ app.get "/new", (request, response) ->
   response.render "new_case/new_case"
 
 app.post "/add_new_case", (request, response) ->
-  console.log "Got the following request %o", request
+  console.log "Got the following request %o", request.body
   api.addNewCase request.body
   response.end()
 

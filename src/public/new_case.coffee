@@ -1,5 +1,6 @@
 import {addItemToList, removeItemFromList} from '../utils.coffee'
-import {ajax} from "./ajax.coffee"
+import Promise from 'es6-promise'
+import axios from 'axios'
 
 newCase =
   name: "Escriba un nombre"
@@ -70,9 +71,9 @@ newCaseApp = new Vue
     saveNewUseCase: ->
       console.log "Finally, saving!!"
       console.log "Sending %o", newCase
-      ajax.post "http://localhost:8081/add_new_case", newCase
+      axios.post "http://localhost:8081/add_new_case", newCase
         .then ->
           console.log "Saved"
-        .fail ->
+        .catch ->
           console.log "Failed"
 

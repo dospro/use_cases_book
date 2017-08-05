@@ -1,4 +1,5 @@
-import {ajax} from "./ajax.coffee"
+import Promise from 'es6-promise'
+import axios from 'axios'
 
 app = new Vue
   el: "#app"
@@ -6,8 +7,8 @@ app = new Vue
     items: []
 
 externalData = null
-ajax.get "http://localhost:8081/data"
+axios.get "http://localhost:8081/data"
   .then (data) ->
-    app.items = JSON.parse data
-  .fail (err) ->
+    app.items = data
+  .catch (err) ->
     console.log "Failed to get data %o", err

@@ -18,9 +18,27 @@ class Connection
 
 
   addUseCase: (dataObject) ->
-    sqlQuery = "insert into use_cases(name, description) values(?, ?);"
-    payload = [dataObject.name, dataObject.description]
+    sqlQuery = "insert into use_cases(
+name,
+description,
+version, goal,
+pre_condition,
+pos_condition,
+notes)
+values(?, ?, ?, ?, ?, ?, ?);"
+    payload = [
+      dataObject.name,
+      dataObject.description,
+      dataObject.version,
+      dataObject.goal,
+      dataObject.precondition,
+      dataObject.poscondition,
+      dataObject.comment
+    ]
     @db.run sqlQuery, payload, (err) ->
-      console.log "An error occurred #{err}"
+      if err
+        console.log "An error occurred #{err}"
+      else
+        console.log "Id: %d", @lastID
 
 exports.Connection = Connection
