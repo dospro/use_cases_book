@@ -8,7 +8,7 @@ app = new Vue
 
 externalData = null
 axios.get "http://localhost:8081/data"
-  .then (data) ->
-    app.items = data
+  .then (response) ->
+    app.items = response.data
   .catch (err) ->
     console.log "Failed to get data %o", err

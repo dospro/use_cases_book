@@ -23,8 +23,6 @@ app.post "/add_new_case", (request, response) ->
   response.end()
 
 app.post "/add_new_actor", (request, response) ->
-  response.header "Access-Control-Allow-Origin", "*"
-  response.header "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"
   api.addNewActor null
   response.end()
 
@@ -33,12 +31,10 @@ app.post "/update_case", (request, response) ->
   response.end()
 
 app.get "/data", (request, response) ->
-  response.header "Access-Control-Allow-Origin", "*"
-  response.header "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"
   api.getAllCases()
     .then (result) ->
       response.json result
-      response.end()
+
 
 app.get '*', (request, response) ->
   response
