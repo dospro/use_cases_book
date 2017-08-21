@@ -1,4 +1,4 @@
-import {addItemToList, removeItemFromList} from '../utils.coffee'
+import {addItemToList, removeItemFromList} from './utils.coffee'
 import Promise from 'es6-promise'
 import axios from 'axios'
 

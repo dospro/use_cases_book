@@ -9,26 +9,29 @@ block content
             .card-header
               h5.mb-0
                 a(href="#") {{ item.name }}
-            .card-block {{ item.description }}
+            .card-block() {{ item.description }}
               .row
                 .col-6
                   p Actors:
                   ul
-                    li Actor 1
-                    li Actor 2
+                    template(v-for="actor in item.actors")
+                      li {{ actor }}
                 .col-6
-                  p Version: 10
+                  p Version: {{ item.version }}
               .row
-                p Goal: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada mi id nibh lacinia, eget dapibus massa cursus.
-                p Precondition: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada mi id nibh lacinia, eget dapibus massa cursus.
-                p Poscondition: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada mi id nibh lacinia, eget dapibus massa cursus.
+                p Goal: {{ item.goal }}
+              .row
+                p Precondition: {{ item.precondition }}
+              .row
+                p Poscondition: {{ item.poscondition}}
+              .row
                 p Description: {{ item.description }}
               .row
                 p Steps:
                 ul
-                  li Step 1
-                  li Step 2
-                  li Step 3
+                  template(v-for="step in item.course")
+                    li {{ step.text }}
+
 
 
     .row

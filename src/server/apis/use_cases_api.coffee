@@ -1,10 +1,19 @@
-database = require "./db_interface"
-Promise = require("./promise").Promise
+Promise = require("../promise").Promise
+db = require("../db")
 
-db = new database.Connection "database.db"
 
 exports.addNewCase = (payload) ->
-  db.addUseCase payload
+  data =
+    name: payload.name
+    description: payload.description
+    goal: payload.goal
+    trigger_event: 'None'
+    pre_condition: payload.precondition
+    pos_condition: payload.poscondition
+    comments: payload.comment
+
+  db.UseCase.build data
+    .save()
 
 exports.addNewActor = (payload) ->
   console.log "Add new actor. Missing implementation"
@@ -14,7 +23,7 @@ exports.updateCase = (payload) ->
 
 exports.getAllCases = () ->
   promise = new Promise
-  db.getUseCases()
+  db.UseCase.findAll raw: true
     .then (rows) ->
       useCases = []
       for row in rows
@@ -22,9 +31,11 @@ exports.getAllCases = () ->
           name: row.name
           description: row.description
           version: row.version
+          goal: row.goal
+          precondition: row.pre_condition
+          poscondition: row.pos_condition
+          comment : row.comments
           date: row.date
-          reference: "header#{row.id}"
-          hReference: "#header#{row.id}"
         useCases.push newData
       promise.resolve useCases
 

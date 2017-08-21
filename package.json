@@ -6,13 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/server.js",
-    "initdb": "sqlite3 database.db < sql_scripts/create_db.sql; sqlite3 database.db < sql_scripts/fill_test_data.sql",
-    "prepublish": "npm-run-all lint compile-coffee bundle",
+    "prepublish": "npm-run-all lint bundle",
     "clean-dist": "rm -rf ./dist && mkdir dist",
     "clean-public": "rm -rf ./public/js/*.js",
     "clean": "npm-run-all --parallel clean-dist clean-public",
     "lint": "coffeelint src/",
-    "compile-coffee": "coffee -o ./dist --compile ./src/*.coffee",
     "bundle": "webpack",
     "watch": "webpack --progress --colors --watch"
   },
@@ -26,8 +24,11 @@
     "coffeelint": "^1.16.0",
     "es6-promise": "^4.1.1",
     "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-coffee": "^2.3.4",
     "npm-run-all": "^4.0.2",
     "pug": "^2.0.0-rc.2",
+    "sequelize": "^4.5.0",
     "sqlite3": "^3.1.8",
     "vue-loader": "^13.0.0",
     "vue-template-compiler": "^2.3.4",
@@ -38,6 +39,7 @@
     "body-parser": "^1.16.0",
     "express": "^4.14.0",
     "pug": "^2.0.0-rc.2",
+    "sequelize": "^4.5.0",
     "sqlite3": "^3.1.8"
   },
   "repository": {

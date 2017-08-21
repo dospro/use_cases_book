@@ -2,8 +2,8 @@ let path = require('path');
 
 module.exports = {
     entry: {
-        app: './src/public/app.coffee',
-        newCase: './src/public/new_case.coffee'
+        app: './src/client/app.coffee',
+        newCase: './src/client/new_case.coffee'
     },
     output: {
         filename: '[name].bundle.js',

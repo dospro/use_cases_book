@@ -1,7 +1,7 @@
 express = require "express"
 bodyParser = require "body-parser"
 path = require "path"
-api = require "./new_case_api"
+api = require "./apis/use_cases_api"
 
 app = express()
 
@@ -30,7 +30,7 @@ app.post "/update_case", (request, response) ->
   api.updateCase null
   response.end()
 
-app.get "/data", (request, response) ->
+app.get "/list_cases", (request, response) ->
   api.getAllCases()
     .then (result) ->
       response.json result
