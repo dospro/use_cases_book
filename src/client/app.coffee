@@ -1,8 +1,12 @@
 import Promise from 'es6-promise'
 import axios from 'axios'
+import Box from './components/box.vue'
 
 app = new Vue
   el: "#app"
+  components: {
+    Box
+  }
   data:
     items: []
 

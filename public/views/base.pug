@@ -2,38 +2,7 @@ extends layout
 
 block content
   .container#app
-    template(v-for="item in items")
-      .row
-        .col-8
-          .card
-            .card-header
-              h5.mb-0
-                a(href="#") {{ item.name }}
-            .card-block() {{ item.description }}
-              .row
-                .col-6
-                  p Actors:
-                  ul
-                    template(v-for="actor in item.actors")
-                      li {{ actor }}
-                .col-6
-                  p Version: {{ item.version }}
-              .row
-                p Goal: {{ item.goal }}
-              .row
-                p Precondition: {{ item.precondition }}
-              .row
-                p Poscondition: {{ item.poscondition}}
-              .row
-                p Description: {{ item.description }}
-              .row
-                p Steps:
-                ul
-                  template(v-for="step in item.course")
-                    li {{ step.text }}
-
-
-
+    box(v-for="item in items" :item="item")
     .row
       .col-4
         a.btn.btn-primary(href="new") Nuevo Caso de Uso
