@@ -17,30 +17,26 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "axios": "^0.16.2",
-    "body-parser": "^1.16.0",
     "coffee-loader": "^0.7.3",
     "coffee-script": "^1.12.6",
     "coffeelint": "^1.16.0",
-    "es6-promise": "^4.1.1",
-    "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-coffee": "^2.3.4",
-    "npm-run-all": "^4.0.2",
-    "pug": "^2.0.0-rc.2",
-    "sequelize": "^4.5.0",
-    "sqlite3": "^3.1.8",
+    "npm-run-all": "^4.1.1",
     "vue-loader": "^13.0.0",
     "vue-template-compiler": "^2.3.4",
-    "webpack": "^3.0.0"
+    "webpack": "^3.5.6"
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "body-parser": "^1.16.0",
+    "body-parser": "^1.18.0",
+    "es6-promise": "^4.1.1",
     "express": "^4.14.0",
-    "pug": "^2.0.0-rc.2",
-    "sequelize": "^4.5.0",
-    "sqlite3": "^3.1.8"
+    "morgan": "^1.8.2",
+    "pug": "^2.0.0-rc.4",
+    "sequelize": "^4.8.2",
+    "sqlite3": "^3.1.10",
+    "vue": "^2.4.2"
   },
   "repository": {
     "type": "git",

@@ -11,6 +11,10 @@ app.use express.static(path.join(__dirname, '../public'))
 app.use bodyParser.json()
 app.use bodyParser.urlencoded extended: true
 
+switch app.get 'env'
+  when 'development'
+    app.use require('morgan')('dev')
+
 app.get "/", (request, response) ->
   response.render "base"
 
