@@ -16,7 +16,7 @@
 </template>
 
 <script lang="coffee">
-  module.exports =
+  export default
     props: ['item']
     data: ->
       state: 'none'

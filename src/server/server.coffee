@@ -16,7 +16,7 @@ switch app.get 'env'
     app.use require('morgan')('dev')
 
 app.get "/", (request, response) ->
-  response.render "base"
+  response.render "index"
 
 app.get "/new", (request, response) ->
   response.render "new_case/new_case"

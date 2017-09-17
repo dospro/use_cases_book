@@ -2,7 +2,7 @@ let path = require('path');
 
 module.exports = {
     entry: {
-        app: './src/client/app.coffee',
+        app: './src/client/main.coffee',
         newCase: './src/client/new_case.coffee'
     },
     output: {
