@@ -20,3 +20,7 @@ gulp.task('compile-models', function () {
 });
 
 gulp.task('compile', ['compile-main', 'compile-apis', 'compile-models']);
+
+gulp.task('watch', function () {
+    gulp.watch('src/server/**/*.coffee', ['compile']);
+});

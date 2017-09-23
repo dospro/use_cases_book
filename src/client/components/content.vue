@@ -3,9 +3,9 @@
     <Box v-for="item in items" :item="item"></Box>
     <div class="row">
       <div class="col-4">
-        <a class="btn btn-primary" href="#" @click="gotoAddCase">
+        <router-link to="/add_case" class="btn btn-primary">
           Nuevo Caso de Uso
-        </a>
+        </router-link>
       </div>
     </div>
   </div>
@@ -22,10 +22,6 @@
 
     data: () ->
       items: []
-
-    methods:
-      gotoAddCase: () ->
-        @$emit 'add-case'
 
     mounted: () ->
       axios.get "http://localhost:8081/list_cases"
