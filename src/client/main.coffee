@@ -7,8 +7,17 @@ import Routes from './routes.coffee'
 Vue.use VueRouter
 Vue.use Vuex
 
+store = new Vuex.Store
+  state:
+    name: 'TestName'
+  mutations:
+    changeName: (state, newName) ->
+      console.log "Changing name to %o", newName
+      state.name = newName
+
 app = new Vue
   el: "#app"
   render: (h) -> h(App)
   router: Routes
+  store: store
 
