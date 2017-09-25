@@ -33,16 +33,30 @@
     <div class="card">
       <div class="card-header">Basic Course Steps</div>
       <div class="card-block">
-        <template v-for="item in course">
-          TODO
-        </template>
+        <step
+          v-for="item in course"
+          v-on:add-step="addCourseStep(item.index)"
+          v-on:remove-step="removeCourseStep(item.index)"
+          v-bind:item="item">
+        </step>
       </div>
     </div>
     <div class="card">
       <div class="card-header">Extensions:</div>
       <div class="card-block">
-        <template v-for="(item, index) in extensions">
-          TODO
+        <extension
+          v-for="(item, index) in extensions"
+          v-on:add-step="addExtensionStep"
+          v-on:remove-step = "removeExtensionStep"
+          v-bind:index="index"
+          v-bind:item="item"
+          v-bind:course="course">
+        </extension>
+        <template v-for="item in extensions">
+          <h3>{{ item.parentStep }}</h3>
+          <ul>
+            <li v-for="step in item.extensionSteps">{{ step.index }} : {{ step.text }}</li>
+          </ul>
         </template>
         <div class="offset-10 col-2">
           <span class="input-group-btn">
@@ -77,6 +91,8 @@
 <script lang="coffee">
   import axios from 'axios'
   import {addItemToList, removeItemFromList} from '../../utils.coffee'
+  import Step from './step.vue'
+  import Extension from './extension.vue'
 
 
   newCase =
@@ -109,6 +125,9 @@
   export default
     data: () ->
       return newCase
+    components:
+      step: Step
+      extension: Extension
     methods:
       addCourseStep: (stepId) ->
         newStep =
@@ -140,9 +159,6 @@
 
       removeExtensionStep: (extensionIndex, stepId) ->
         removeItemFromList @extensions[extensionIndex].extensionSteps, stepId
-
-      indexToLetter: (index) ->
-        return (index + 9).toString(36)
 
       saveNewUseCase: ->
         axios.post "http://localhost:8081/add_new_case", newCase
