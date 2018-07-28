@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import {addItemToList, removeItemFromList} from './utils.js';
-import Promise from 'es6-promise';
 import axios from 'axios';
 
 const newCase = {

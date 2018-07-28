@@ -31,10 +31,10 @@
 
         computed: {
             test: {
-                get: () => {
+                get: function() {
                     return this.$store.state.name;
                 },
-                set: (newValue) => {
+                set: function(newValue) {
                     this.$store.commit('changeName', newValue);
                 }
             }

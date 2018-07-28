@@ -21,10 +21,10 @@
         methods: {
             addStep: () => {
                 this.$emit('add-step');
+            },
+            removeStep: () => {
+                this.$emit('remove-step');
             }
-        },
-        removeStep: () => {
-            this.$emit('remove-step');
         }
     }
 </script>

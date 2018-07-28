@@ -45,3 +45,8 @@ function getAllCases() {
             });
     });
 }
+
+module.exports.addNewCase = addNewCase;
+module.exports.addNewActor = addNewActor;
+module.exports.updateCase = updateCase;
+module.exports.getAllCases = getAllCases;
