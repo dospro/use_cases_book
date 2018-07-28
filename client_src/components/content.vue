@@ -1,16 +1,16 @@
 <template>
-    <div class="container">
-        <Box v-for="item in items" :item="item"></Box>
-        <h1>Name is {{ test }}</h1>
-        <input type="text" v-model="test"/>
-        <div class="row">
-            <div class="col-4">
-                <router-link to="/add_case" class="btn btn-primary">
-                    Nuevo Caso de Uso
-                </router-link>
-            </div>
-        </div>
+  <div class="container">
+    <Box v-for="item in items" :item="item" :key="item.id"></Box>
+    <h1>Name is {{ test }}</h1>
+    <input type="text" v-model="test"/>
+    <div class="row">
+      <div class="col-4">
+        <router-link to="/add_case" class="btn btn-primary">
+          Nuevo Caso de Uso
+        </router-link>
+      </div>
     </div>
+  </div>
 </template>
 
 
@@ -23,7 +23,7 @@
             'Box': Box
         },
 
-        data: () => {
+        data: function () {
             return {
                 items: []
             };
@@ -31,16 +31,17 @@
 
         computed: {
             test: {
-                get: function() {
+                get: function () {
                     return this.$store.state.name;
                 },
-                set: function(newValue) {
+                set: function (newValue) {
                     this.$store.commit('changeName', newValue);
                 }
             }
         },
 
-        mounted: () => {
+        mounted: function () {
+
             axios.get("http://localhost:8081/list_cases")
                 .then((response) => {
                     this.items = response.data;

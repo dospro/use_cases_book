@@ -9,10 +9,15 @@ const Extension = require("./models/extension");
 
 class Connection {
     constructor() {
-        const sequelize = new Sequelize("mainDB", null, null, {
-            dialect: "sqlite",
-            storage: "database.db"
-        });
+        const sequelize = new Sequelize(
+            "dosprode_use_cases_book_dev",
+            "dosprode_dospro",
+            "48T!jB7lPnos",
+            {
+                host: "www.dosprodev.com",
+                dialect: "mysql"
+            }
+        );
 
 
         this.UseCase = UseCase(sequelize, Sequelize);
@@ -36,6 +41,6 @@ class Connection {
         this.Step.sync();
         this.Extension.sync();
     }
-};
+}
 
 module.exports = new Connection();
