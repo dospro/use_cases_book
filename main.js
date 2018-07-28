@@ -13,6 +13,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 switch (app.get('env')) {
     case 'development':
+        const mainPath = __dirname + '/main.js';
+        app.use(require('express-reload')(mainPath));
         app.use(require('morgan')('dev'));
         break;
 }
