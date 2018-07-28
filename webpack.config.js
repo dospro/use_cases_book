@@ -2,11 +2,11 @@ let path = require('path');
 
 module.exports = {
     entry: {
-        app: './src/client/main.coffee',
-        newCase: './src/client/new_case.coffee'
+        app: './src/client/main.js',
+        newCase: './src/client/new_case.js'
     },
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'public/js')
     },
     module: {
@@ -16,14 +16,20 @@ module.exports = {
                 loader: 'vue-loader',
                 options: {
                     loaders: {
-                        js: 'coffee-loader'
+                        js: 'babel-loader'
                     }
                 }
             },
             {
-                test: /\.coffee$/,
-                loader: 'coffee-loader'
-            }
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env']
+                    }
+                }
+            },
         ]
 
     }

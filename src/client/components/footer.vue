@@ -2,6 +2,6 @@
 
 </template>
 
-<script lang="coffee">
+<script>
 
 </script>
