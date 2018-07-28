@@ -1,4 +1,4 @@
-exports.default = function (sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     return sequelize.define("use_case", {
         name: {
             type: DataTypes.STRING,

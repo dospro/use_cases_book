@@ -6,8 +6,8 @@ const api = require("./apis/use_cases_api");
 const app = express();
 
 app.set("view engine", "pug");
-app.set('views', path.join(__dirname, '../public/views'));
-app.use(express.static(path.join(__dirname, '../public')));
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
