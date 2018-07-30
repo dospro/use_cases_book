@@ -10,7 +10,7 @@ function addItemToList(itemsList, index, newItem) {
     itemsList.splice(stepIndex + 1, 0, newItem);
     stepIndex++;
     total = itemsList.length;
-    for (let i = stepIndex; i < total - 1; ++i) {
+    for (let i = stepIndex; i < total; ++i) {
         itemsList[i].index++;
     }
 }
@@ -30,7 +30,7 @@ function removeItemFromList(itemsList, index) {
     itemsList.splice(stepIndex, 1);
     total = itemsList.length;
     if (stepIndex < total) {
-        for (let i = stepIndex; i < total - 1; ++i) {
+        for (let i = stepIndex; i < total; ++i) {
             itemsList[i].index--;
         }
     }

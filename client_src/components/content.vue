@@ -1,8 +1,6 @@
 <template>
   <div class="container">
     <Box v-for="item in items" :item="item" :key="item.id"></Box>
-    <h1>Name is {{ test }}</h1>
-    <input type="text" v-model="test"/>
     <div class="row">
       <div class="col-4">
         <router-link to="/add_case" class="btn btn-primary">
@@ -41,7 +39,6 @@
         },
 
         mounted: function () {
-
             axios.get("http://localhost:8081/list_cases")
                 .then((response) => {
                     this.items = response.data;

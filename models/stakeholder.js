@@ -1,8 +1,11 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define("stakeholder", {
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false
-        }
-    });
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            }
+        },
+        {
+            timestamps: false
+        });
 };

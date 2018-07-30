@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 switch (app.get('env')) {
     case 'development':
         const mainPath = __dirname + '/main.js';
-        app.use(require('express-reload')(mainPath));
+        //app.use(require('express-reload')(mainPath));
         app.use(require('morgan')('dev'));
         break;
 }
@@ -57,4 +57,5 @@ app.get('*', (request, response) => {
 
 app.listen(8081, () => {
     console.log("Listening port 8081");
+    console.log("Open: http://localhost:8081");
 });

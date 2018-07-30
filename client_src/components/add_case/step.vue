@@ -19,10 +19,10 @@
     export default {
         props: ['item'],
         methods: {
-            addStep: () => {
+            addStep: function() {
                 this.$emit('add-step');
             },
-            removeStep: () => {
+            removeStep: function() {
                 this.$emit('remove-step');
             }
         }

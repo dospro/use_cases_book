@@ -1,11 +1,14 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define("step", {
-        step_number: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+            step_number: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
+            description: {
+                type: DataTypes.STRING
+            }
         },
-        description: {
-            type: DataTypes.STRING
-        }
-    });
+        {
+            timestamps: false
+        });
 };

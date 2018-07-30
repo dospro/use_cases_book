@@ -82,7 +82,7 @@
       <input class="form-control" v-model="comment">
     </div>
     <div class="row">
-      <button class="btn btn-primary offset-10 col-2" :click="saveNewUseCase">
+      <button class="btn btn-primary offset-10 col-2" v-on:click="saveNewUseCase">
         Save changes
       </button>
     </div>
@@ -126,7 +126,7 @@
     };
 
     export default {
-        data: () => {
+        data: function () {
             return newCase;
         },
         components: {
@@ -134,7 +134,7 @@
             extension: Extension
         },
         methods: {
-            addCourseStep: (stepId) => {
+            addCourseStep: function (stepId) {
                 const newStep = {
                     index: stepId,
                     text: ""
@@ -142,11 +142,11 @@
                 addItemToList(this.course, stepId, newStep);
             },
 
-            removeCourseStep: (stepId) => {
+            removeCourseStep: function (stepId) {
                 removeItemFromList(this.course, stepId);
             },
 
-            addExtension: () => {
+            addExtension: function () {
                 const newItem = {
                     parentStep: 1,
                     extensionSteps: [
@@ -160,7 +160,7 @@
                 this.extensions.push(newItem);
             },
 
-            addExtensionStep: (extensionIndex, stepId) => {
+            addExtensionStep: function (extensionIndex, stepId) {
                 const newStep = {
                     index: stepId,
                     text: ""
@@ -168,11 +168,11 @@
                 addItemToList(this.extensions[extensionIndex].extensionSteps, stepId, newStep);
             },
 
-            removeExtensionStep: (extensionIndex, stepId) => {
+            removeExtensionStep: function (extensionIndex, stepId) {
                 removeItemFromList(this.extensions[extensionIndex].extensionSteps, stepId);
             },
 
-            saveNewUseCase: () => {
+            saveNewUseCase: function () {
                 axios.post("http://localhost:8081/add_new_case", newCase)
                     .then(() => {
                         console.log("Saved");
