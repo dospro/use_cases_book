@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <Box v-for="item in items" :item="item" :key="item.id"></Box>
+    <Draggable v-model="items">
+      <transition-group name="main-list">
+        <Box v-for="item in items" :item="item" :key="item.id" class="main-list-item"></Box>
+      </transition-group>
+    </Draggable>
     <div class="row">
       <div class="col-4">
         <router-link to="/add_case" class="btn btn-primary">
@@ -14,11 +18,13 @@
 
 <script>
     import axios from 'axios';
+    import draggable from 'vuedraggable';
     import Box from './box.vue';
 
     export default {
         components: {
-            'Box': Box
+            'Box': Box,
+            'Draggable': draggable
         },
 
         data: function () {
@@ -49,3 +55,9 @@
         }
     }
 </script>
+
+<style>
+  .main-list-item {
+    transition: all 1s;
+  }
+</style>

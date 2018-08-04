@@ -30,6 +30,7 @@ function getAllCases() {
                 const useCases = [];
                 for (const row of rows) {
                     const newData = {
+                        id: row.id,
                         name: row.name,
                         description: row.description,
                         version: row.version,
