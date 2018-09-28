@@ -21,14 +21,26 @@
             </template>
           </select>
           <span class="input-group-btn">
-            <button class="btn btn-primary">Add</button>
+            <button class="btn btn-primary" v-on:click="toggleAddActor">Add</button>
           </span>
+          <div v-if="state.isAddingActor">
+            <label>Actor Name:</label>
+            <input type="text"/>
+          </div>
         </div>
       </div>
     </div>
     <div class="form-group">
       <label>Goal</label>
       <input class="form-control" v-model="goal">
+    </div>
+    <div class="form-group">
+      <label>Pre-conditions:</label>
+      <input class="form-control" v-model="precondition"/>
+    </div>
+    <div class="form-group">
+      <label>Trigger:</label>
+      <input class="form-control" v-model="trigger"/>
     </div>
     <div class="card">
       <div class="card-header">Basic Course Steps</div>
@@ -50,6 +62,7 @@
                 :key="item.id"
                 v-on:add-step="addExtensionStep"
                 v-on:remove-step="removeExtensionStep"
+                v-on:change-parent-step="changeParentStep"
                 v-bind:index="index"
                 v-bind:item="item"
                 v-bind:course="course">
@@ -70,14 +83,6 @@
       </div>
     </div>
     <div class="form-group">
-      <label>Pre-conditions:</label>
-      <input class="form-control" v-model="precondition">
-    </div>
-    <div class="form-group">
-      <label>Pos-conditions:</label>
-      <input class="form-control" v-model="poscondition">
-    </div>
-    <div class="form-group">
       <label>Comments:</label>
       <input class="form-control" v-model="comment">
     </div>
@@ -91,43 +96,19 @@
 
 
 <script>
+    import {mapState} from 'vuex';
     import axios from 'axios';
     import {addItemToList, removeItemFromList} from '../../utils.js';
     import Step from './step.vue';
     import Extension from './extension.vue';
 
-
-    const newCase = {
-        name: "Escriba un nombre",
-        description: "Escriba una descripción",
-        version: 1,
-        actors: [],
-        goal: "",
-        precondition: "",
-        poscondition: "",
-        comment: "",
-        course: [
-            {
-                index: 1,
-                text: ""
-            }
-        ],
-        extensions: [
-            {
-                parentStep: 1,
-                extensionSteps: [
-                    {
-                        index: 1,
-                        text: ""
-                    }
-                ]
-            }
-        ]
-    };
-
     export default {
         data: function () {
-            return newCase;
+            return {
+                state: {
+                    isAddingActor: false
+                }
+            };
         },
         components: {
             step: Step,
@@ -161,6 +142,7 @@
             },
 
             addExtensionStep: function (extensionIndex, stepId) {
+                this.$store.commit('changeMessage', "Adding step");
                 const newStep = {
                     index: stepId,
                     text: ""
@@ -172,6 +154,14 @@
                 removeItemFromList(this.extensions[extensionIndex].extensionSteps, stepId);
             },
 
+            changeParentStep: function (parentStep, index) {
+                this.extensions[index].parentStep = parentStep;
+            },
+
+            toggleAddActor: function () {
+                this.state.isAddingActor = true;
+            },
+
             saveNewUseCase: function () {
                 axios.post("http://localhost:8081/add_new_case", newCase)
                     .then(() => {
@@ -181,6 +171,18 @@
                         console.log("Failed");
                     });
             }
-        }
+        },
+        computed: mapState("NewCaseStore", [
+            "name",
+            "description",
+            "version",
+            "actors",
+            "goal",
+            "precondition",
+            "trigger",
+            "comment",
+            "course",
+            "extensions"
+        ])
     }
 </script>

@@ -35,11 +35,11 @@ class Connection {
         this.UseCase.hasMany(this.Step);
         this.Step.hasMany(this.Extension);
 
-        this.UseCase.sync();
-        this.Actor.sync();
-        this.StakeHolder.sync();
-        this.Step.sync();
-        this.Extension.sync();
+        // this.UseCase.sync();
+        // this.Actor.sync();
+        // this.StakeHolder.sync();
+        // this.Step.sync();
+        // this.Extension.sync();
     }
 }
 

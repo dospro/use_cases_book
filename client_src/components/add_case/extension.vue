@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-1">
-        <select class="custom-select">
+        <select class="custom-select" v-model="parentStep" v-on:change="changeParent()">
           <option v-for="(step, index) in course">{{ index + 1 }}</option>
         </select>
       </div>
@@ -17,7 +17,8 @@
               </button>
             </span>
             <span class="input-group-btn">
-              <button class="btn btn-success" title="Remove Step"
+              <button class="btn btn-success"
+                      title="Remove Step"
                       v-on:click="removeStep(index, step.index)">
                 <i class="fa fa-remove"></i>
               </button>
@@ -33,6 +34,11 @@
 <script>
     export default {
         props: ['course', 'item', 'index'],
+        data: function () {
+            return {
+                parentStep: 0
+            }
+        },
         methods: {
             indexToLetter: function (index) {
                 return (index + 9).toString(36);
@@ -43,6 +49,9 @@
             },
             removeStep: function (extensionIndex, stepIndex) {
                 this.$emit('remove-step', extensionIndex, stepIndex);
+            },
+            changeParent: function () {
+                this.$emit('change-parent-step', this.parentStep, this.index);
             }
         }
     }

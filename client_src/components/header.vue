@@ -7,10 +7,13 @@
       <div class="col-9">
         <ul class="nav justify-content-center">
           <li class="nav-item">
-            <router-link to="/" class="nav-link">Home</router-link>
+            <router-link to="/" class="nav-link">Use cases</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Other</a>
+            <router-link to="/" class="nav-link">Tickets</router-link>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Docs</a>
           </li>
         </ul>
       </div>
