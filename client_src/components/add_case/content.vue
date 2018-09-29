@@ -45,13 +45,7 @@
     <div class="card">
       <div class="card-header">Basic Course Steps</div>
       <div class="card-block">
-        <step
-                v-for="item in course"
-                :key="item.id"
-                v-on:add-step="addCourseStep(item.index)"
-                v-on:remove-step="removeCourseStep(item.index)"
-                v-bind:item="item">
-        </step>
+        <step v-for="item in course" :key="item.index" v-bind:index="item.index"></step>
       </div>
     </div>
     <div class="card">
@@ -96,7 +90,6 @@
 
 
 <script>
-    import {mapState} from 'vuex';
     import axios from 'axios';
     import {addItemToList, removeItemFromList} from '../../utils.js';
     import Step from './step.vue';
@@ -115,17 +108,6 @@
             extension: Extension
         },
         methods: {
-            addCourseStep: function (stepId) {
-                const newStep = {
-                    index: stepId,
-                    text: ""
-                };
-                addItemToList(this.course, stepId, newStep);
-            },
-
-            removeCourseStep: function (stepId) {
-                removeItemFromList(this.course, stepId);
-            },
 
             addExtension: function () {
                 const newItem = {
@@ -142,7 +124,6 @@
             },
 
             addExtensionStep: function (extensionIndex, stepId) {
-                this.$store.commit('changeMessage', "Adding step");
                 const newStep = {
                     index: stepId,
                     text: ""
@@ -172,17 +153,46 @@
                     });
             }
         },
-        computed: mapState("NewCaseStore", [
-            "name",
-            "description",
-            "version",
-            "actors",
-            "goal",
-            "precondition",
-            "trigger",
-            "comment",
-            "course",
-            "extensions"
-        ])
+        computed: {
+            name: {
+                get() {return this.$store.state.NewCaseStore.name;},
+                set(value) {this.$store.commit("NewCaseStore/setName", value);}
+            },
+            description: {
+                get() {return this.$store.state.NewCaseStore.description;},
+                set(value) {this.$store.commit("NewCaseStore/setDescription", value);}
+            },
+            version: {
+                get() {return this.$store.state.NewCaseStore.version;},
+                set(value) {this.$store.commit("NewCaseStore/setVersion", value);}
+            },
+            actors: {
+                get() {return this.$store.state.NewCaseStore.actors;},
+                set(value) {this.$store.commit("NewCaseStore/setActors", value);}
+            },
+            goal: {
+                get() {return this.$store.state.NewCaseStore.goal;},
+                set(value) {this.$store.commit("NewCaseStore/setGoal", value);}
+            },
+            precondition: {
+                get() {return this.$store.state.NewCaseStore.precondition;},
+                set(value) {this.$store.commit("NewCaseStore/setPrecondition", value);}
+            },
+            trigger: {
+                get() {return this.$store.state.NewCaseStore.trigger;},
+                set(value) {this.$store.commit("NewCaseStore/setTrigger", value);}
+            },
+            comment: {
+                get() {return this.$store.state.NewCaseStore.comment;},
+                set(value) {this.$store.commit("NewCaseStore/setComment", value);}
+            },
+            course() {
+                return this.$store.state.NewCaseStore.course;
+            },
+            extensions() {
+                return this.$store.state.NewCaseStore.extensions;
+            },
+
+        }
     }
 </script>
