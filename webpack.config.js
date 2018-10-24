@@ -2,8 +2,7 @@ let path = require('path');
 
 module.exports = {
     entry: {
-        app: './client_src/main.js',
-        newCase: './client_src/new_case.js'
+        app: './client_src/main.js'
     },
     output: {
         filename: '[name].js',

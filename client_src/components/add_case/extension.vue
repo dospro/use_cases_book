@@ -45,10 +45,16 @@
             },
 
             addStep: function (extensionIndex, stepIndex) {
-                this.$emit('add-step', extensionIndex, stepIndex);
+                this.$store.commit('NewCaseStore/addExtensionStep', {
+                    extensionIndex: extensionIndex,
+                    stepIndex: stepIndex
+                });
             },
             removeStep: function (extensionIndex, stepIndex) {
-                this.$emit('remove-step', extensionIndex, stepIndex);
+                this.$store.commit('NewCaseStore/removeExtensionStep', {
+                    extensionIndex: extensionIndex,
+                    stepIndex: stepIndex
+                });
             },
             changeParent: function () {
                 this.$emit('change-parent-step', this.parentStep, this.index);

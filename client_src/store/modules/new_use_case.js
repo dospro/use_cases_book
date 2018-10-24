@@ -1,3 +1,41 @@
+function addItemToList(itemsList, index, newItem) {
+    let stepIndex = index - 1;
+    let total = itemsList.length;
+
+    if (stepIndex >= total) {
+        console.log("Out of index");
+        return;
+    }
+
+    itemsList.splice(stepIndex + 1, 0, newItem);
+    stepIndex++;
+    total = itemsList.length;
+    for (let i = stepIndex; i < total; ++i) {
+        itemsList[i].index++;
+    }
+}
+
+function removeItemFromList(itemsList, index) {
+    let stepIndex = index - 1;
+    let total = itemsList.length;
+    if (total === 1) {
+        console.log("Only one element left");
+        return;
+    }
+    if (stepIndex >= total) {
+        console.log("Out of index");
+        return;
+    }
+
+    itemsList.splice(stepIndex, 1);
+    total = itemsList.length;
+    if (stepIndex < total) {
+        for (let i = stepIndex; i < total; ++i) {
+            itemsList[i].index--;
+        }
+    }
+}
+
 const state = {
     name: "Test name",
     description: "",
@@ -95,6 +133,31 @@ const mutations = {
     },
     setStepText(state, options) {
         state.course[options.index].text = options.text;
+    },
+    addExtension(state, options) {
+        const newItem = {
+            parentStep: 1,
+            extensionSteps: [
+                {
+                    index: 1,
+                    text: ""
+                }
+            ]
+        };
+        state.extensions.push(newItem);
+    },
+    addExtensionStep(state, options) {
+        const newStep = {
+            index: options.stepIndex,
+            text: ""
+        };
+        addItemToList(state.extensions[options.extensionIndex].extensionSteps, options.stepIndex, newStep);
+    },
+    removeExtensionStep(state, options) {
+        removeItemFromList(state.extensions[options.extensionIndex].extensionSteps, options.stepIndex);
+    },
+    setExtensionText(state, options) {
+        state.extensions[options.extensionIndex].extensionSteps[options.stepIndex].text = options.text;
     }
 };
 

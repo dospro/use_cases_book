@@ -54,9 +54,6 @@
         <extension
                 v-for="(item, index) in extensions"
                 :key="item.id"
-                v-on:add-step="addExtensionStep"
-                v-on:remove-step="removeExtensionStep"
-                v-on:change-parent-step="changeParentStep"
                 v-bind:index="index"
                 v-bind:item="item"
                 v-bind:course="course">
@@ -91,7 +88,6 @@
 
 <script>
     import axios from 'axios';
-    import {addItemToList, removeItemFromList} from '../../utils.js';
     import Step from './step.vue';
     import Extension from './extension.vue';
 
@@ -107,34 +103,11 @@
             step: Step,
             extension: Extension
         },
+
         methods: {
-
             addExtension: function () {
-                const newItem = {
-                    parentStep: 1,
-                    extensionSteps: [
-                        {
-                            index: 1,
-                            text: ""
-                        }
-                    ]
-                };
-
-                this.extensions.push(newItem);
+                this.$store.commit("NewCaseStore/addExtension");
             },
-
-            addExtensionStep: function (extensionIndex, stepId) {
-                const newStep = {
-                    index: stepId,
-                    text: ""
-                };
-                addItemToList(this.extensions[extensionIndex].extensionSteps, stepId, newStep);
-            },
-
-            removeExtensionStep: function (extensionIndex, stepId) {
-                removeItemFromList(this.extensions[extensionIndex].extensionSteps, stepId);
-            },
-
             changeParentStep: function (parentStep, index) {
                 this.extensions[index].parentStep = parentStep;
             },
