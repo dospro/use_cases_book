@@ -2,29 +2,17 @@
   <div>
     <div class="row">
       <div class="col-1">
-        <select class="custom-select" v-model="parentStep" v-on:change="changeParent()">
-          <option v-for="(step, index) in course">{{ index + 1 }}</option>
+        <select class="custom-select" v-model="parentStep" v-on:change="changeParentStep">
+          <option v-for="(step, index) in stepsList">{{ index + 1 }}</option>
         </select>
       </div>
       <div class="col-11">
-        <template v-for="step in item.extensionSteps">
-          <div class="input-group">
-            <span class="input-group-addon"> {{ indexToLetter(step.index) }} </span>
-            <input type="text" class="form-control" v-model="step.text">
-            <span class="input-group-btn">
-              <button class="btn btn-success" title="New Step" v-on:click="addStep(index, step.index)">
-                <i class="fa fa-plus"></i>
-              </button>
-            </span>
-            <span class="input-group-btn">
-              <button class="btn btn-success"
-                      title="Remove Step"
-                      v-on:click="removeStep(index, step.index)">
-                <i class="fa fa-remove"></i>
-              </button>
-            </span>
-          </div>
-        </template>
+        <step v-for="step in extension.extensionSteps"
+              :key="step.index"
+              v-bind:item="step"
+              v-on:add-step="addStep"
+              v-on:remove-step="removeStep">
+        </step>
       </div>
     </div>
     <hr>
@@ -32,11 +20,18 @@
 </template>
 
 <script>
+    import step from './step.vue';
+
     export default {
-        props: ['course', 'item', 'index'],
+        components: {step},
+        props: {
+            'steps-list': Array,
+            'extension': Object,
+            'extension-index': Number
+        },
         data: function () {
             return {
-                parentStep: 0
+                parentStep: 1
             }
         },
         methods: {
@@ -44,20 +39,14 @@
                 return (index + 9).toString(36);
             },
 
-            addStep: function (extensionIndex, stepIndex) {
-                this.$store.commit('NewCaseStore/addExtensionStep', {
-                    extensionIndex: extensionIndex,
-                    stepIndex: stepIndex
-                });
+            addStep: function (extensionStepIndex) {
+                this.$emit("add-extension-step", extensionStepIndex, this.extensionIndex);
             },
-            removeStep: function (extensionIndex, stepIndex) {
-                this.$store.commit('NewCaseStore/removeExtensionStep', {
-                    extensionIndex: extensionIndex,
-                    stepIndex: stepIndex
-                });
+            removeStep: function (extensionStepIndex) {
+                this.$emit("remove-extension-step", extensionStepIndex, this.extensionIndex);
             },
-            changeParent: function () {
-                this.$emit('change-parent-step', this.parentStep, this.index);
+            changeParentStep: function () {
+                this.$emit('change-parent-step', this.parentStep, this.extensionIndex);
             }
         }
     }

@@ -45,7 +45,12 @@
     <div class="card">
       <div class="card-header">Basic Course Steps</div>
       <div class="card-block">
-        <step v-for="item in course" :key="item.index" v-bind:index="item.index"></step>
+        <step v-for="item in course"
+              :key="item.index"
+              v-bind:item="item"
+              v-on:add-step="addStep"
+              v-on:remove-step="removeStep">
+        </step>
       </div>
     </div>
     <div class="card">
@@ -54,9 +59,12 @@
         <extension
                 v-for="(item, index) in extensions"
                 :key="item.id"
-                v-bind:index="index"
-                v-bind:item="item"
-                v-bind:course="course">
+                v-bind:extension-index="index"
+                v-bind:extension="item"
+                v-bind:steps-list="course"
+                v-on:add-extension-step="addExtensionStep"
+                v-on:remove-extension-step="removeExtensionStep"
+                v-on:change-parent-step="changeParentStep">
         </extension>
         <template v-for="item in extensions">
           <h3>{{ item.parentStep }}</h3>
@@ -105,13 +113,30 @@
         },
 
         methods: {
+            addStep: function (stepIndex) {
+                this.$store.commit("NewCaseStore/addStep", stepIndex);
+            },
+            removeStep: function (stepIndex) {
+                this.$store.commit("NewCaseStore/removeStep", stepIndex);
+            },
             addExtension: function () {
                 this.$store.commit("NewCaseStore/addExtension");
             },
             changeParentStep: function (parentStep, index) {
                 this.extensions[index].parentStep = parentStep;
             },
-
+            addExtensionStep: function (stepIndex, extensionIndex) {
+                this.$store.commit("NewCaseStore/addExtensionStep", {
+                    stepIndex: stepIndex,
+                    extensionIndex: extensionIndex
+                });
+            },
+            removeExtensionStep: function (stepIndex, extensionIndex) {
+                this.$store.commit("NewCaseStore/removeExtensionStep", {
+                    stepIndex: stepIndex,
+                    extensionIndex: extensionIndex
+                });
+            },
             toggleAddActor: function () {
                 this.state.isAddingActor = true;
             },
@@ -128,36 +153,68 @@
         },
         computed: {
             name: {
-                get() {return this.$store.state.NewCaseStore.name;},
-                set(value) {this.$store.commit("NewCaseStore/setName", value);}
+                get() {
+                    return this.$store.state.NewCaseStore.name;
+                },
+                set(value) {
+                    this.$store.commit("NewCaseStore/setName", value);
+                }
             },
             description: {
-                get() {return this.$store.state.NewCaseStore.description;},
-                set(value) {this.$store.commit("NewCaseStore/setDescription", value);}
+                get() {
+                    return this.$store.state.NewCaseStore.description;
+                },
+                set(value) {
+                    this.$store.commit("NewCaseStore/setDescription", value);
+                }
             },
             version: {
-                get() {return this.$store.state.NewCaseStore.version;},
-                set(value) {this.$store.commit("NewCaseStore/setVersion", value);}
+                get() {
+                    return this.$store.state.NewCaseStore.version;
+                },
+                set(value) {
+                    this.$store.commit("NewCaseStore/setVersion", value);
+                }
             },
             actors: {
-                get() {return this.$store.state.NewCaseStore.actors;},
-                set(value) {this.$store.commit("NewCaseStore/setActors", value);}
+                get() {
+                    return this.$store.state.NewCaseStore.actors;
+                },
+                set(value) {
+                    this.$store.commit("NewCaseStore/setActors", value);
+                }
             },
             goal: {
-                get() {return this.$store.state.NewCaseStore.goal;},
-                set(value) {this.$store.commit("NewCaseStore/setGoal", value);}
+                get() {
+                    return this.$store.state.NewCaseStore.goal;
+                },
+                set(value) {
+                    this.$store.commit("NewCaseStore/setGoal", value);
+                }
             },
             precondition: {
-                get() {return this.$store.state.NewCaseStore.precondition;},
-                set(value) {this.$store.commit("NewCaseStore/setPrecondition", value);}
+                get() {
+                    return this.$store.state.NewCaseStore.precondition;
+                },
+                set(value) {
+                    this.$store.commit("NewCaseStore/setPrecondition", value);
+                }
             },
             trigger: {
-                get() {return this.$store.state.NewCaseStore.trigger;},
-                set(value) {this.$store.commit("NewCaseStore/setTrigger", value);}
+                get() {
+                    return this.$store.state.NewCaseStore.trigger;
+                },
+                set(value) {
+                    this.$store.commit("NewCaseStore/setTrigger", value);
+                }
             },
             comment: {
-                get() {return this.$store.state.NewCaseStore.comment;},
-                set(value) {this.$store.commit("NewCaseStore/setComment", value);}
+                get() {
+                    return this.$store.state.NewCaseStore.comment;
+                },
+                set(value) {
+                    this.$store.commit("NewCaseStore/setComment", value);
+                }
             },
             course() {
                 return this.$store.state.NewCaseStore.course;

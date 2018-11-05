@@ -37,7 +37,7 @@ function removeItemFromList(itemsList, index) {
 }
 
 const state = {
-    name: "Test name",
+    name: "",
     description: "",
     version: 1,
     actors: [],
