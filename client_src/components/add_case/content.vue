@@ -2,21 +2,21 @@
   <div class="container">
     <div class="form-group">
       <label>Name</label>
-      <input class="form-control" v-model="name">
+      <input class="form-control" v-model="newCase.name">
     </div>
     <div class="form-group">
       <label>Description</label>
-      <textarea class="form-control" v-model="description"></textarea>
+      <textarea class="form-control" v-model="newCase.description"></textarea>
     </div>
     <div class="row">
       <div class="col-4">
-        <label>Version: {{ version }}</label>
+        <label>Version: {{ newCase.version }}</label>
       </div>
       <div class="col-8">
         <div class="input-group">
           <label>Actors:</label>
           <select class="custom-select">
-            <template v-for="actor in actors">
+            <template v-for="actor in newCase.actors">
               <option>{{ actor }}</option>
             </template>
           </select>
@@ -32,20 +32,20 @@
     </div>
     <div class="form-group">
       <label>Goal</label>
-      <input class="form-control" v-model="goal">
+      <input class="form-control" v-model="newCase.goal">
     </div>
     <div class="form-group">
       <label>Pre-conditions:</label>
-      <input class="form-control" v-model="precondition"/>
+      <input class="form-control" v-model="newCase.precondition"/>
     </div>
     <div class="form-group">
       <label>Trigger:</label>
-      <input class="form-control" v-model="trigger"/>
+      <input class="form-control" v-model="newCase.trigger"/>
     </div>
     <div class="card">
       <div class="card-header">Basic Course Steps</div>
       <div class="card-block">
-        <step v-for="item in course"
+        <step v-for="item in newCase.course"
               :key="item.index"
               v-bind:item="item"
               v-on:add-step="addStep"
@@ -57,16 +57,16 @@
       <div class="card-header">Extensions:</div>
       <div class="card-block">
         <extension
-                v-for="(item, index) in extensions"
+                v-for="(item, index) in newCase.extensions"
                 :key="item.id"
                 v-bind:extension-index="index"
                 v-bind:extension="item"
-                v-bind:steps-list="course"
+                v-bind:steps-list="newCase.course"
                 v-on:add-extension-step="addExtensionStep"
                 v-on:remove-extension-step="removeExtensionStep"
                 v-on:change-parent-step="changeParentStep">
         </extension>
-        <template v-for="item in extensions">
+        <template v-for="item in newCase.extensions">
           <h3>{{ item.parentStep }}</h3>
           <ul>
             <li v-for="step in item.extensionSteps" :key="step.id">{{ step.index }} : {{ step.text }}</li>
@@ -83,7 +83,7 @@
     </div>
     <div class="form-group">
       <label>Comments:</label>
-      <input class="form-control" v-model="comment">
+      <input class="form-control" v-model="newCase.comment">
     </div>
     <div class="row">
       <button class="btn btn-primary offset-10 col-2" v-on:click="saveNewUseCase">
@@ -104,8 +104,35 @@
             return {
                 state: {
                     isAddingActor: false
+                },
+                newCase: {
+                    name: "",
+                    description: "",
+                    version: 1,
+                    actors: [],
+                    goal: "",
+                    precondition: "",
+                    trigger: "",
+                    comment: "",
+                    course: [
+                        {
+                            index: 1,
+                            text: ""
+                        }
+                    ],
+                    extensions: [
+                        {
+                            parentStep: 1,
+                            extensionSteps: [
+                                {
+                                    index: 1,
+                                    text: ""
+                                }
+                            ]
+                        }
+                    ]
                 }
-            };
+            }
         },
         components: {
             step: Step,
@@ -113,116 +140,90 @@
         },
 
         methods: {
-            addStep: function (stepIndex) {
-                this.$store.commit("NewCaseStore/addStep", stepIndex);
+            addStep: function (currentStepIndex) {
+                const newStep = {
+                    index: currentStepIndex,
+                    text: ""
+                };
+                this._addItemToList(this.newCase.course, currentStepIndex, newStep);
             },
-            removeStep: function (stepIndex) {
-                this.$store.commit("NewCaseStore/removeStep", stepIndex);
+            removeStep: function (index) {
+                this._removeItemFromList(this.newCase.course, index);
             },
             addExtension: function () {
-                this.$store.commit("NewCaseStore/addExtension");
+                const newItem = {
+                    parentStep: 1,
+                    extensionSteps: [
+                        {
+                            index: 1,
+                            text: ""
+                        }
+                    ]
+                }
+                this.newCase.extensions.push(newItem);
             },
             changeParentStep: function (parentStep, index) {
-                this.extensions[index].parentStep = parentStep;
+                this.newCase.extensions[index].parentStep = parentStep;
             },
             addExtensionStep: function (stepIndex, extensionIndex) {
-                this.$store.commit("NewCaseStore/addExtensionStep", {
-                    stepIndex: stepIndex,
-                    extensionIndex: extensionIndex
-                });
+                const newStep = {
+                    index: stepIndex,
+                    text: ""
+                };
+                this._addItemToList(this.newCase.extensions[extensionIndex].extensionSteps, stepIndex, newStep);
             },
             removeExtensionStep: function (stepIndex, extensionIndex) {
-                this.$store.commit("NewCaseStore/removeExtensionStep", {
-                    stepIndex: stepIndex,
-                    extensionIndex: extensionIndex
-                });
+                this._removeItemFromList(this.newCase.extensions[extensionIndex].extensionSteps, stepIndex);
             },
             toggleAddActor: function () {
                 this.state.isAddingActor = true;
             },
 
             saveNewUseCase: function () {
-                axios.post("http://localhost:8081/add_new_case", newCase)
+                axios.post("http://localhost:8081/add_new_case", this.newCase)
                     .then(() => {
                         console.log("Saved");
                     })
                     .catch(() => {
                         console.log("Failed");
                     });
-            }
-        },
-        computed: {
-            name: {
-                get() {
-                    return this.$store.state.NewCaseStore.name;
-                },
-                set(value) {
-                    this.$store.commit("NewCaseStore/setName", value);
-                }
             },
-            description: {
-                get() {
-                    return this.$store.state.NewCaseStore.description;
-                },
-                set(value) {
-                    this.$store.commit("NewCaseStore/setDescription", value);
-                }
-            },
-            version: {
-                get() {
-                    return this.$store.state.NewCaseStore.version;
-                },
-                set(value) {
-                    this.$store.commit("NewCaseStore/setVersion", value);
-                }
-            },
-            actors: {
-                get() {
-                    return this.$store.state.NewCaseStore.actors;
-                },
-                set(value) {
-                    this.$store.commit("NewCaseStore/setActors", value);
-                }
-            },
-            goal: {
-                get() {
-                    return this.$store.state.NewCaseStore.goal;
-                },
-                set(value) {
-                    this.$store.commit("NewCaseStore/setGoal", value);
-                }
-            },
-            precondition: {
-                get() {
-                    return this.$store.state.NewCaseStore.precondition;
-                },
-                set(value) {
-                    this.$store.commit("NewCaseStore/setPrecondition", value);
-                }
-            },
-            trigger: {
-                get() {
-                    return this.$store.state.NewCaseStore.trigger;
-                },
-                set(value) {
-                    this.$store.commit("NewCaseStore/setTrigger", value);
-                }
-            },
-            comment: {
-                get() {
-                    return this.$store.state.NewCaseStore.comment;
-                },
-                set(value) {
-                    this.$store.commit("NewCaseStore/setComment", value);
-                }
-            },
-            course() {
-                return this.$store.state.NewCaseStore.course;
-            },
-            extensions() {
-                return this.$store.state.NewCaseStore.extensions;
-            },
+            _addItemToList(itemsList, index, newItem) {
+                let stepIndex = index - 1;
+                let total = itemsList.length;
 
+                if (stepIndex >= total) {
+                    console.log("Out of index");
+                    return;
+                }
+
+                itemsList.splice(stepIndex + 1, 0, newItem);
+                stepIndex++;
+                total = itemsList.length;
+                for (let i = stepIndex; i < total; ++i) {
+                    itemsList[i].index++;
+                }
+            },
+            _removeItemFromList(itemsList, index) {
+                let stepIndex = index - 1;
+                let total = itemsList.length;
+                if (total === 1) {
+                    console.log("Only one element left");
+                    return;
+                }
+                if (stepIndex >= total) {
+                    console.log("Out of index");
+                    return;
+                }
+
+                itemsList.splice(stepIndex, 1);
+                total = itemsList.length;
+                if (stepIndex < total) {
+                    for (let i = stepIndex; i < total; ++i) {
+                        itemsList[i].index--;
+                    }
+                }
+            }
         }
     }
 </script>
