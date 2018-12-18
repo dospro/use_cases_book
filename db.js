@@ -3,18 +3,18 @@ const Sequelize = require("sequelize");
 const UseCase = require("./models/use_case");
 const Actor = require("./models/actor");
 const StakeHolder = require("./models/stakeholder");
-const Step = require("./models/steps");
+const Step = require("./models/step");
 const Extension = require("./models/extension");
 
 
 class Connection {
     constructor() {
         const sequelize = new Sequelize(
-            "dosprode_use_cases_book_dev",
-            "dosprode_dospro",
-            "48T!jB7lPnos",
+            "use_cases_book",
+            "local",
+            "password",
             {
-                host: "www.dosprodev.com",
+                host: "db",
                 dialect: "mysql"
             }
         );
@@ -34,12 +34,6 @@ class Connection {
 
         this.UseCase.hasMany(this.Step);
         this.Step.hasMany(this.Extension);
-
-        // this.UseCase.sync();
-        // this.Actor.sync();
-        // this.StakeHolder.sync();
-        // this.Step.sync();
-        // this.Extension.sync();
     }
 }
 
