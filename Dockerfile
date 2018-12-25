@@ -11,5 +11,7 @@ ENV NODE_ENV=docker
 EXPOSE 80
 
 RUN npm build
-# RUN ./node_modules/sequelize-cli/lib/sequelize db:migrate
-CMD ["npm", "start"]
+
+RUN ["chmod", "+x", "/app/scripts/docker-entrypoint.sh"]
+
+ENTRYPOINT ["./scripts/docker-entrypoint.sh"]

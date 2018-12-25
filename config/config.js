@@ -6,7 +6,7 @@ module.exports = {
         "host": "db",
         "dialect": "mysql"
     },
-    "development": {
+    "staging": {
         "username": "dosprode_dospro",
         "password": "48T!jB7lPnos",
         "database": "dosprode_use_cases_book_dev",

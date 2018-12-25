@@ -41,7 +41,8 @@ module.exports = {
                 }
             },
             {
-                timestamps: false
+                timestamps: false,
+                freezeTableName: true
             }));
         queries.push(queryInterface.createTable('step', {
                 id: {

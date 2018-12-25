@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const config = require('./config/config');
 
 const UseCase = require("./models/use_case");
 const Actor = require("./models/actor");
@@ -8,13 +9,13 @@ const Extension = require("./models/extension");
 
 
 class Connection {
-    constructor() {
+    constructor(db_config) {
         const sequelize = new Sequelize(
-            "use_cases_book",
-            "local",
-            "password",
+            db_config["database"],
+            db_config["username"],
+            db_config["password"],
             {
-                host: "db",
+                host: db_config["host"],
                 dialect: "mysql"
             }
         );
@@ -37,4 +38,4 @@ class Connection {
     }
 }
 
-module.exports = new Connection();
+module.exports = new Connection(config[process.env["NODE_ENV"]]);
