@@ -1,3 +1,4 @@
+const Sequelize = require("sequelize");
 const db = require("../db");
 
 
@@ -25,7 +26,13 @@ function updateCase(payload) {
 
 function getAllCases() {
     return new Promise((resolve, reject) => {
-        db.UseCase.findAll({raw: true})
+        db.UseCase.findAll({
+            include: [{
+                model: db.Step,
+                where: {use_case_id: Sequelize.col('use_case.id')},
+                required: false
+            }],
+            raw: true})
             .then((rows) => {
                 const useCases = [];
                 for (const row of rows) {

@@ -17,11 +17,10 @@ module.exports = function (sequelize, DataTypes) {
                 references: {
                     model: 'use_case',
                     key: 'id'
-                }
+                },
+                field: 'use_case_id'
             }
         },
-        {
-            timestamps: false,
-            freezeTableName: true
-        });
+        {}
+        );
 };

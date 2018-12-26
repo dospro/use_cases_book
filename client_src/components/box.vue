@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div class="row">
     <div class="col-10">
       <div class="card">
@@ -8,7 +8,13 @@
           </h5>
         </div>
         <div class="card-block" v-bind:style="{display: state}">
-          {{ item.description }}
+          <span class="font-weight-bold">Descripction:</span> {{ item.description }}<br>
+          <span class="font-weight-bold">Precondition:</span> {{item.precondition}}<br>
+          <span class="font-weight-bold">Poscondition:</span> {{item.poscondition}}<br>
+          <span class="font-weight-bold">Trigger:</span> {{item.trigger}}<br>
+          <template v-for="step in item.course">
+            {{step.index}}: {{step.text}}
+          </template>
         </div>
       </div>
     </div>
@@ -28,8 +34,7 @@
             toggle: function () {
                 if (this.state === 'none') {
                     this.state = 'block';
-                }
-                else {
+                } else {
                     this.state = 'none';
                 }
             }

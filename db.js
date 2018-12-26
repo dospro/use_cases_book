@@ -16,7 +16,12 @@ class Connection {
             db_config["password"],
             {
                 host: db_config["host"],
-                dialect: "mysql"
+                dialect: "mysql",
+                define: {
+                    underscoredAll: true,
+                    freezeTableName: true,
+                    timestamps: false
+                }
             }
         );
 
@@ -33,7 +38,7 @@ class Connection {
         this.UseCase.belongsToMany(this.StakeHolder, {through: "use_case_stakeholders"});
         this.StakeHolder.belongsToMany(this.UseCase, {through: "use_case_stakeholders"});
 
-        this.UseCase.hasMany(this.Step);
+        this.UseCase.hasMany(this.Step, {foreignKey: 'use_case_id'});
         this.Step.hasMany(this.Extension);
     }
 }

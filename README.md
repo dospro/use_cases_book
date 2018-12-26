@@ -9,7 +9,7 @@ It uses the following the dependencies:
 * Node.js and Express for the backend
 * Bootstrap (CSS only)
 * Vue.js 2
-* Sequelize ORM with a SQLite3 database
+* Sequelize ORM with a MySQL database
 * Axios for ajax calls
 * Webpack
 
