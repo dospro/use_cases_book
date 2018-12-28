@@ -13,7 +13,7 @@
           <span class="font-weight-bold">Poscondition:</span> {{item.poscondition}}<br>
           <span class="font-weight-bold">Trigger:</span> {{item.trigger}}<br>
           <template v-for="step in item.course">
-            {{step.index}}: {{step.text}}
+            <span class="font-weight-bold">{{step.index}}:</span> {{step.text}}<br>
           </template>
         </div>
       </div>

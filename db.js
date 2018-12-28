@@ -17,6 +17,7 @@ class Connection {
             {
                 host: db_config["host"],
                 dialect: "mysql",
+                logging: db_config["logging"],
                 define: {
                     underscoredAll: true,
                     freezeTableName: true,
@@ -40,6 +41,7 @@ class Connection {
 
         this.UseCase.hasMany(this.Step, {foreignKey: 'use_case_id'});
         this.Step.hasMany(this.Extension);
+        this.sequelize = sequelize;
     }
 }
 

@@ -20,9 +20,5 @@ module.exports = function (sequelize, DataTypes) {
                     key: 'id'
                 }
             }
-        },
-        {
-            timestamps: false,
-            freezeTableName: true
         });
 };
