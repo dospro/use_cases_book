@@ -22,36 +22,46 @@ app.get("/", (request, response) => {
     response.render("index");
 });
 
-app.get("/new", (request, response) => {
-    response.render("new_case/new_case");
-});
-
-app.post("/add_new_case", (request, response) => {
-    console.log("Got the following request %o", request.body);
-    api.addNewCase(request.body);
-    response.end();
-});
-
-app.post("/add_new_actor", (request, response) => {
-    api.addNewActor(null);
-    response.end();
-});
-
-app.post("/update_case", (request, response) => {
-    api.updateCase(null);
-    response.end();
-});
-
-app.get("/list_cases", (request, response) => {
+app.get("/cases/", (request, response, next) => {
     api.getAllCases()
         .then((result) => {
             response.json(result);
+        })
+        .catch(err => {
+            next(err);
         });
+});
+
+app.post("/cases/", (request, response, next) => {
+    api.addNewCase(request.body)
+        .then(() => {
+            response.end();
+        })
+        .catch(err => {
+            next(err);
+        });
+});
+
+app.put("/cases/:case_id", (request, response) => {
+    api.updateCase(request.params.case_id, request.body);
+    response.end();
 });
 
 
 app.get('*', (request, response) => {
     response.status(404).send("Error: #{request.url} not found.");
+});
+
+app.use((err, request, response, next) => {
+    if (response.headersSent) {
+        return next(err)
+    }
+    console.error(err);
+    const errorResponse = {
+        status: 500,
+        message: err.message
+    };
+    response.status(500).json(errorResponse);
 });
 
 app.listen(8081, () => {

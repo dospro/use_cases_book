@@ -33,19 +33,8 @@
             };
         },
 
-        computed: {
-            test: {
-                get: function () {
-                    return this.$store.state.name;
-                },
-                set: function (newValue) {
-                    this.$store.commit('changeName', newValue);
-                }
-            }
-        },
-
         mounted: function () {
-            axios.get("http://localhost:8081/list_cases")
+            axios.get("http://localhost:8081/cases/")
                 .then((response) => {
                     this.items = response.data;
                 })

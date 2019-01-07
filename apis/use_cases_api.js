@@ -31,8 +31,8 @@ async function addNewCase(payload) {
                 }));
             }, []), {transaction: t});
         });
-    } catch (e) {
-        console.log("Error %o", e);
+    } catch (err) {
+        throw err;
     }
 }
 
@@ -55,7 +55,7 @@ async function getAllCases() {
             raw: true
         });
 
-        return rows.reduce((acc, row) => {
+        return Object.values(rows.reduce((acc, row) => {
             if (row.id in acc) {
                 acc[row.id].course.push({
                     index: row["steps.step_number"],
@@ -81,9 +81,9 @@ async function getAllCases() {
                 }
             }
             return acc;
-        }, {});
-    } catch (e) {
-        throw Error(e);
+        }, {}));
+    } catch (err) {
+        throw err;
     }
 }
 

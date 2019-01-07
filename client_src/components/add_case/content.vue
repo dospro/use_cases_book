@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container col-12 col-lg-6 col-md-8">
     <div class="form-group">
       <label>Name</label>
       <input class="form-control" v-model="newCase.name">
@@ -8,27 +8,13 @@
       <label>Description</label>
       <textarea class="form-control" v-model="newCase.description"></textarea>
     </div>
-    <div class="row">
-      <div class="col-4">
-        <label>Version: {{ newCase.version }}</label>
-      </div>
-      <div class="col-8">
-        <div class="input-group">
-          <label>Actors:</label>
-          <select class="custom-select">
-            <template v-for="actor in newCase.actors">
-              <option>{{ actor }}</option>
-            </template>
-          </select>
-          <span class="input-group-btn">
-            <button class="btn btn-primary" v-on:click="toggleAddActor">Add</button>
-          </span>
-          <div v-if="state.isAddingActor">
-            <label>Actor Name:</label>
-            <input type="text"/>
-          </div>
-        </div>
-      </div>
+    <div class="form-group">
+      <label>Version: {{ newCase.version }}</label>
+    </div>
+    <div class="form-group">
+      <Actor actor="state.actor"
+             v-on:select-actor="setActor">
+      </Actor>
     </div>
     <div class="form-group">
       <label>Goal</label>
@@ -45,18 +31,18 @@
     <div class="card">
       <div class="card-header">Basic Course Steps</div>
       <div class="card-block">
-        <step v-for="item in newCase.course"
+        <Step v-for="item in newCase.course"
               :key="item.index"
               v-bind:item="item"
               v-on:add-step="addStep"
               v-on:remove-step="removeStep">
-        </step>
+        </Step>
       </div>
     </div>
     <div class="card">
       <div class="card-header">Extensions:</div>
       <div class="card-block">
-        <extension
+        <Extension
                 v-for="(item, index) in newCase.extensions"
                 :key="item.id"
                 v-bind:extension-index="index"
@@ -65,7 +51,7 @@
                 v-on:add-extension-step="addExtensionStep"
                 v-on:remove-extension-step="removeExtensionStep"
                 v-on:change-parent-step="changeParentStep">
-        </extension>
+        </Extension>
         <template v-for="item in newCase.extensions">
           <h3>{{ item.parentStep }}</h3>
           <ul>
@@ -98,6 +84,7 @@
     import axios from 'axios';
     import Step from './step.vue';
     import Extension from './extension.vue';
+    import Actor from './actor.vue';
 
     export default {
         data: function () {
@@ -135,8 +122,9 @@
             }
         },
         components: {
-            step: Step,
-            extension: Extension
+            Step,
+            Extension,
+            Actor
         },
 
         methods: {
@@ -178,9 +166,11 @@
             toggleAddActor: function () {
                 this.state.isAddingActor = true;
             },
-
+            setActor: function (actor) {
+                this.newCase.actors = [actor];
+            },
             saveNewUseCase: function () {
-                axios.post("http://localhost:8081/add_new_case", this.newCase)
+                axios.post("http://localhost:8081/cases/", this.newCase)
                     .then(() => {
                         console.log("Saved");
                     })
