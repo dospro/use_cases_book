@@ -49,39 +49,26 @@ async function getAllCases() {
         const rows = await db.UseCase.findAll({
             include: [{
                 model: db.Step,
-                where: {use_case_id: Sequelize.col('use_case.id')},
-                required: false
-            }],
-            raw: true
+                attributes: [['step_number', 'index'], ['description', 'text']],
+                where: {use_case_id: Sequelize.col('use_case.id')}
+            }]
         });
 
-        return Object.values(rows.reduce((acc, row) => {
-            if (row.id in acc) {
-                acc[row.id].course.push({
-                    index: row["steps.step_number"],
-                    text: row["steps.description"]
-                });
-            } else {
-                acc[row.id] = {
-                    id: row.id,
-                    name: row.name,
-                    description: row.description,
-                    version: row.version,
-                    goal: row.goal,
-                    precondition: row.pre_condition,
-                    poscondition: row.pos_condition,
-                    comment: row.comments,
-                    date: row.date,
-                    course: [
-                        {
-                            index: row["steps.step_number"],
-                            text: row["steps.description"]
-                        }
-                    ]
-                }
+        return rows.map(row => {
+            const data = row.get({plain: true});
+            return {
+                id: data.id,
+                name: data.name,
+                description: data.description,
+                version: data.version,
+                goal: data.goal,
+                precondition: data.pre_condition,
+                poscondition: data.pos_condition,
+                comment: data.comments,
+                date: data.date,
+                course: data.steps
             }
-            return acc;
-        }, {}));
+        });
     } catch (err) {
         throw err;
     }
