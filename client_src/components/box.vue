@@ -14,6 +14,9 @@
           <span class="font-weight-bold">Trigger:</span> {{item.trigger}}<br>
           <template v-for="step in item.course">
             <span class="font-weight-bold">{{step.index}}:</span> {{step.text}}<br>
+            <template v-for="extension in step.extensions">
+              <span class="font-italic">e{{extension.extension_number}}: {{extension.description}}</span><br>
+            </template>
           </template>
         </div>
       </div>

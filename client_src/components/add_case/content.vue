@@ -170,7 +170,7 @@
                 this.newCase.actors = [actor];
             },
             saveNewUseCase: function () {
-                axios.post("http://localhost:8081/cases/", this.newCase)
+                axios.post("/cases/", this.newCase)
                     .then(() => {
                         console.log("Saved");
                     })

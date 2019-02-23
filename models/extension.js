@@ -18,7 +18,8 @@ module.exports = function (sequelize, DataTypes) {
                 references: {
                     model: 'step',
                     key: 'id'
-                }
+                },
+                field: 'step_id'
             }
         });
 };

@@ -34,7 +34,7 @@
         },
 
         mounted: function () {
-            axios.get("http://localhost:8081/cases/")
+            axios.get("/cases/")
                 .then((response) => {
                     this.items = response.data;
                 })

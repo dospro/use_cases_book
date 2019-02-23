@@ -1,4 +1,3 @@
-const Sequelize = require("sequelize");
 const db = require("../db");
 
 
@@ -50,7 +49,9 @@ async function getAllCases() {
             include: [{
                 model: db.Step,
                 attributes: [['step_number', 'index'], ['description', 'text']],
-                where: {use_case_id: Sequelize.col('use_case.id')}
+                include: [{
+                    model: db.Extension,
+                }]
             }]
         });
 

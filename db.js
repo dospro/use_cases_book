@@ -40,7 +40,7 @@ class Connection {
         this.StakeHolder.belongsToMany(this.UseCase, {through: "use_case_stakeholders"});
 
         this.UseCase.hasMany(this.Step, {foreignKey: 'use_case_id'});
-        this.Step.hasMany(this.Extension);
+        this.Step.hasMany(this.Extension, {foreignKey: 'step_id'});
         this.sequelize = sequelize;
     }
 }

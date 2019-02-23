@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const api = require("./apis/use_cases_api");
+const fs = require("fs");
+const https = require("https");
 
 const app = express();
 
@@ -64,7 +66,12 @@ app.use((err, request, response, next) => {
     response.status(500).json(errorResponse);
 });
 
-app.listen(8081, () => {
-    console.log("Listening port 8081");
-    console.log("Open: http://localhost:8081");
+const options = {
+    "key": fs.readFileSync("key.pem"),
+    "cert": fs.readFileSync("certificate.pem")
+};
+
+https.createServer(options, app).listen(443, () => {
+    console.log("Listening on https");
+    console.log("Open: https://localhost");
 });
